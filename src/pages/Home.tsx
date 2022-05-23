@@ -19,42 +19,70 @@ export const Home = () => {
     <div className=" flex flex-col gap-10 h-full dark:bg-darkCol  ">
       <header className=" flex flex-row m-2 ">
         <img src="/assets/pin.svg" alt="logo image" className=" h-8 " />
-        <h1 className=" text-2xl self-center dark:text-primary">Social</h1>
+        <h1 className=" text-2xl self-center text-darkCol dark:text-primary">
+          Social
+        </h1>
         <div className=" ml-auto ">
           {darkTheme ? (
             <RiSunFill
-              className=" text-primary text-xl p-4"
+              className=" text-primary text-xl m-2 hover:animate-pulse "
               onClick={themeSetter}
             />
           ) : (
-            <MdDarkMode className="" onClick={themeSetter} />
+            <MdDarkMode
+              className=" text-darkCol text-xl m-2 hover:animate-pulse "
+              onClick={themeSetter}
+            />
           )}
         </div>
       </header>
-      <main className=" flex flex-col gap-10 items-center ">
-        {/* main image */}
-        <img src="/assets/social.svg" alt="texting image" className=" h-48 " />
-        {/* main tagline */}
-        <div className=" flex flex-col w-72 items-center dark:text-white">
-          <p className=" text-lg dark:text-white ">
-            Get to know the world around you..
-          </p>
-          <p className=" text-xl ml-auto ">be a part of it.</p>
+      <main className=" flex flex-col sm:flex-row sm:justify-center justify-items-center gap-10 sm:gap-14 items-center ">
+        <div className="flex flex-col">
+          {/* main image */}
+          <img
+            src="/assets/social.svg"
+            alt="texting image"
+            className=" h-48 sm:w-96 sm:h-80"
+          />
+          {/* main tagline */}
+          <div className=" flex flex-col items-center dark:text-white ">
+            <h3 className=" text-lg sm:text-xl dark:text-white  ">
+              Get to know the world around you..
+            </h3>
+            <h3 className=" text-xl sm:text-2xl ml-auto ">be a part of it.</h3>
+          </div>
         </div>
+
         {/* login signup links */}
         <div className=" flex flex-col items-center gap-2 ">
           <Link
             to="/login"
-            className=" flex flex-row justify-center rounded-lg py-0.5 w-20 bg-primary "
+            className=" group overflow-hidden px-6 h-10 border border-primary rounded-full  "
           >
-            Login
+            <div className="transition duration-300 group-hover:-translate-y-10">
+              <div className="h-10 flex items-center justify-center">
+                <span className="text-darkCol dark:text-primary">Login</span>
+              </div>
+              <div className="h-10 flex items-center justify-center">
+                <span className="text-darkCol dark:text-primary">Login</span>
+              </div>
+            </div>
           </Link>
+
           <div className="dark:text-white"> or</div>
+
           <Link
             to="./signup"
-            className=" flex flex-row justify-center rounded-lg py-0.5 w-20 bg-primary "
+            className=" group overflow-hidden px-6 h-10 border border-primary rounded-full "
           >
-            Signup
+            <div className="transition duration-300 group-hover:-translate-y-10">
+              <div className=" h-10 flex items-center justify-center">
+                <span className="text-darkCol dark:text-primary">Signup</span>
+              </div>
+              <div className=" h-10 flex items-center justify-center">
+                <span className="text-darkCol dark:text-primary">Signup</span>
+              </div>
+            </div>
           </Link>
         </div>
       </main>

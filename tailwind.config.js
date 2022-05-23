@@ -2,13 +2,16 @@ module.exports = {
   content: ["./src/**/*.{html,js,tsx,ts}"],
   darkMode: "class",
   theme: {
-    colors: {
-      primary: "#92FCDB",
-      "primary-li": "",
-      second: "#9358DB",
-      "second-li": "",
+    extend: {
+      colors: {
+        primary: "#92FCDB",
+        primaryLight: "",
+        second: "#9358DB",
+        secondLight: "",
+        darker: "rgb(43, 42, 51)",
+        darkCol: "rgba(66, 65, 77, 1)",
+      },
     },
-    extend: {},
   },
   plugins: [],
 };

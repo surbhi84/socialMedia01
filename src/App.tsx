@@ -2,7 +2,7 @@ import { useAppSelector } from "hooks";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setDarkTheme } from "userRedux/themeSlice";
-import { AppRoutes } from "./components";
+import { AppRoutes, Header } from "./components";
 
 function App() {
   const darkTheme = useAppSelector((state) => state.theme);
@@ -21,9 +21,10 @@ function App() {
   return (
     <div
       className={`App flex flex-col h-screen w-screen ${
-        darkTheme ? "dark" : ""
+        darkTheme ? "dark " : ""
       }`}
     >
+      <Header />
       <AppRoutes />
     </div>
   );

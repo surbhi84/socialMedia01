@@ -1,48 +1,15 @@
 import { Link } from "react-router-dom";
-import { RiSunFill } from "react-icons/ri";
-import { MdDarkMode } from "react-icons/md";
-import { useDispatch } from "react-redux";
-import { isDarkTheme } from "userRedux";
-import { useAppSelector } from "hooks";
 
 export const Home = () => {
-  const dispatch = useDispatch();
-  const darkTheme: boolean = useAppSelector((state) => state.theme);
-
-  const themeSetter = () => {
-    dispatch(isDarkTheme());
-    localStorage.setItem("darkTheme", (!darkTheme).toString());
-  };
-
-  console.log(darkTheme);
   return (
-    <div className=" flex flex-col gap-10 h-full dark:bg-darkCol  ">
-      <header className=" flex flex-row m-2 ">
-        <img src="/assets/pin.svg" alt="logo image" className=" h-8 " />
-        <h1 className=" text-2xl self-center text-darkCol dark:text-primary">
-          Social
-        </h1>
-        <div className=" ml-auto ">
-          {darkTheme ? (
-            <RiSunFill
-              className=" text-primary text-xl m-2 hover:animate-pulse "
-              onClick={themeSetter}
-            />
-          ) : (
-            <MdDarkMode
-              className=" text-darkCol text-xl m-2 hover:animate-pulse "
-              onClick={themeSetter}
-            />
-          )}
-        </div>
-      </header>
-      <main className=" flex flex-col sm:flex-row sm:justify-center justify-items-center gap-10 sm:gap-14 items-center ">
+    <div className=" flex flex-col gap-10 h-full dark:bg-darkCol ">
+      <main className=" flex flex-col sm:flex-row sm:justify-center justify-items-center m-6 gap-10 md:gap-28 items-center ">
         <div className="flex flex-col">
           {/* main image */}
           <img
             src="/assets/social.svg"
             alt="texting image"
-            className=" h-48 sm:w-96 sm:h-80"
+            className=" h-48 sm:w-96 sm:h-80 "
           />
           {/* main tagline */}
           <div className=" flex flex-col items-center dark:text-white ">
@@ -57,14 +24,18 @@ export const Home = () => {
         <div className=" flex flex-col items-center gap-2 ">
           <Link
             to="/login"
-            className=" group overflow-hidden px-6 h-10 border border-primary rounded-full  "
+            className=" group overflow-hidden px-6 h-12 w-60 border border-primaryDark dark:border-primary rounded-full  "
           >
-            <div className="transition duration-300 group-hover:-translate-y-10">
-              <div className="h-10 flex items-center justify-center">
-                <span className="text-darkCol dark:text-primary">Login</span>
+            <div className="transition duration-300 group-hover:-translate-y-12">
+              <div className="h-12 flex items-center justify-center">
+                <span className="text-darkCol dark:text-primary font-medium">
+                  Login
+                </span>
               </div>
-              <div className="h-10 flex items-center justify-center">
-                <span className="text-darkCol dark:text-primary">Login</span>
+              <div className="h-12 flex items-center justify-center">
+                <span className="text-darkCol dark:text-primary font-medium">
+                  Login
+                </span>
               </div>
             </div>
           </Link>
@@ -72,15 +43,19 @@ export const Home = () => {
           <div className="dark:text-white"> or</div>
 
           <Link
-            to="./signup"
-            className=" group overflow-hidden px-6 h-10 border border-primary rounded-full "
+            to="/signup"
+            className=" group overflow-hidden px-6 h-12 w-60 border border-primaryDark dark:border-primary rounded-full "
           >
-            <div className="transition duration-300 group-hover:-translate-y-10">
-              <div className=" h-10 flex items-center justify-center">
-                <span className="text-darkCol dark:text-primary">Signup</span>
+            <div className="transition duration-300 group-hover:-translate-y-12">
+              <div className=" h-12 flex items-center justify-center">
+                <span className="text-darkCol dark:text-primary font-medium">
+                  Signup
+                </span>
               </div>
-              <div className=" h-10 flex items-center justify-center">
-                <span className="text-darkCol dark:text-primary">Signup</span>
+              <div className=" h-12 flex items-center justify-center">
+                <span className="text-darkCol dark:text-primary font-medium">
+                  Signup
+                </span>
               </div>
             </div>
           </Link>

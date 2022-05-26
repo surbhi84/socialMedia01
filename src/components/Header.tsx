@@ -1,7 +1,7 @@
 import { RiSunFill } from "react-icons/ri";
 import { MdDarkMode } from "react-icons/md";
 import { useDispatch } from "react-redux";
-import { isDarkTheme } from "userRedux";
+import { isDarkTheme } from "appRedux";
 import { useAppSelector } from "hooks";
 import { Link } from "react-router-dom";
 
@@ -13,6 +13,7 @@ export const Header = () => {
     dispatch(isDarkTheme());
     localStorage.setItem("darkTheme", (!darkTheme).toString());
   };
+
   return (
     <header className=" flex flex-row p-2 gap-1 dark:bg-darkCol">
       <img src="/assets/pin.svg" alt="logo image" className=" h-8 " />

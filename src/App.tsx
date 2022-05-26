@@ -1,8 +1,9 @@
 import { useAppSelector } from "hooks";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setDarkTheme } from "userRedux/themeSlice";
+import { setDarkTheme } from "appRedux/themeSlice";
 import { AppRoutes, Header } from "./components";
+import { Link } from "react-router-dom";
 
 function App() {
   const darkTheme = useAppSelector((state) => state.theme);
@@ -17,13 +18,14 @@ function App() {
       }
     }
   }, []);
-  console.log(darkTheme);
+
   return (
     <div
       className={`App flex flex-col h-screen w-screen ${
         darkTheme ? "dark " : ""
       }`}
     >
+      <Link to="/test">twopi</Link>
       <Header />
       <AppRoutes />
     </div>

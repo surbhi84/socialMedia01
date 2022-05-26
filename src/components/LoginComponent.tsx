@@ -1,22 +1,33 @@
-import { BsArrowRightShort } from "react-icons/bs";
 import { HiEye, HiEyeOff } from "react-icons/hi";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { loginCall } from "apiCalls";
 
 export const LoginComponent = () => {
   const [show, setShow] = useState(false);
-  const [email, setEmail] = useState("");
-  const [pwd, setPwd] = useState("");
+  const [username, setUsername] = useState("KukretiSurbhi99");
+  const [pwd, setPwd] = useState("collidingatoms");
+  const navigate = useNavigate();
+
+  async function loginHandler(username: string, pwd: string) {
+    try {
+      const response = await loginCall(username, pwd).then((res) => res.data);
+      navigate("/home");
+      localStorage.setItem("token", response.encodedtoken);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   return (
     <div className=" flex flex-col items-center justify-center h-full gap-8 dark:text-primary dark:bg-darkCol ">
-      {/* EMAIL */}
+      {/* USERNAME */}
       <input
         type="text"
-        placeholder="Email"
+        placeholder="Username"
         className=" border-b-2 outline-none border-primary rounded-sm dark:bg-darkCol w-60 "
-        onChange={(e) => setEmail(e.target.value)}
-        value={email}
+        onChange={(e) => setUsername(e.target.value)}
+        value={username}
       />
 
       {/* PASSWORD */}
@@ -37,7 +48,10 @@ export const LoginComponent = () => {
         </div>
       </div>
 
-      <button className=" border border-primaryDark w-60 h-8 rounded-full hover:scale-105 ">
+      <button
+        className=" border border-primaryDark w-60 h-8 rounded-full hover:scale-105 "
+        onClick={() => loginHandler(username, pwd)}
+      >
         Login
       </button>
       <div className="flex flex-col items-center">

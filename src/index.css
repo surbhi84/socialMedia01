@@ -498,6 +498,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-left: auto;
 }
 
+.ml-1 {
+  margin-left: 0.25rem;
+}
+
 .flex {
   display: flex;
 }
@@ -506,8 +510,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 100vh;
 }
 
+.h-36 {
+  height: 9rem;
+}
+
 .h-8 {
   height: 2rem;
+}
+
+.h-16 {
+  height: 4rem;
 }
 
 .h-full {
@@ -534,6 +546,20 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 100vw;
 }
 
+.w-96 {
+  width: 24rem;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.w-fit {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
 .w-60 {
   width: 15rem;
 }
@@ -550,8 +576,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 1.25rem;
 }
 
-.w-56 {
-  width: 14rem;
+.w-48 {
+  width: 12rem;
 }
 
 .origin-left {
@@ -597,6 +623,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   justify-items: center;
 }
 
+.gap-4 {
+  gap: 1rem;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
 .gap-1 {
   gap: 0.25rem;
 }
@@ -611,10 +645,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .gap-10 {
   gap: 2.5rem;
-}
-
-.gap-2 {
-  gap: 0.5rem;
 }
 
 .space-x-2 > :not([hidden]) ~ :not([hidden]) {
@@ -637,12 +667,20 @@ Ensure the default browser behavior of the `hidden` attribute.
   overflow: hidden;
 }
 
-.rounded-sm {
-  border-radius: 0.125rem;
+.rounded-lg {
+  border-radius: 0.5rem;
 }
 
 .rounded-full {
   border-radius: 9999px;
+}
+
+.rounded-xl {
+  border-radius: 0.75rem;
+}
+
+.rounded-sm {
+  border-radius: 0.125rem;
 }
 
 .rounded {
@@ -657,31 +695,55 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-bottom-width: 2px;
 }
 
+.border-primaryDark {
+  --tw-border-opacity: 1;
+  border-color: rgb(24 203 175 / var(--tw-border-opacity));
+}
+
 .border-primary {
   --tw-border-opacity: 1;
   border-color: rgb(146 252 219 / var(--tw-border-opacity));
 }
 
-.border-primaryDark {
-  --tw-border-opacity: 1;
-  border-color: rgb(110 250 206 / var(--tw-border-opacity));
-}
-
-.bg-primary {
+.bg-primaryDark {
   --tw-bg-opacity: 1;
-  background-color: rgb(146 252 219 / var(--tw-bg-opacity));
+  background-color: rgb(24 203 175 / var(--tw-bg-opacity));
 }
 
-.stroke-primary {
-  stroke: #92FCDB;
+.bg-primaryLight {
+  --tw-bg-opacity: 1;
+  background-color: rgb(203 254 238 / var(--tw-bg-opacity));
+}
+
+.stroke-primaryDark {
+  stroke: #18CBAF;
+}
+
+.p-4 {
+  padding: 1rem;
 }
 
 .p-2 {
   padding: 0.5rem;
 }
 
-.p-4 {
-  padding: 1rem;
+.p-3 {
+  padding: 0.75rem;
+}
+
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
 }
 
 .px-6 {
@@ -689,14 +751,19 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-right: 1.5rem;
 }
 
-.text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .text-sm {
@@ -768,6 +835,11 @@ Ensure the default browser behavior of the `hidden` attribute.
           animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+.hover\:bg-primaryLight:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(203 254 238 / var(--tw-bg-opacity));
+}
+
 .group:hover .group-hover\:translate-x-0 {
   --tw-translate-x: 0px;
   -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -791,8 +863,22 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(146 252 219 / var(--tw-border-opacity));
 }
 
+.dark .dark\:bg-darker {
+  --tw-bg-opacity: 1;
+  background-color: rgb(43 42 51 / var(--tw-bg-opacity));
+}
+
 .dark .dark\:bg-darkCol {
   background-color: rgba(66, 65, 77, 1);
+}
+
+.dark .dark\:bg-primary {
+  --tw-bg-opacity: 1;
+  background-color: rgb(146 252 219 / var(--tw-bg-opacity));
+}
+
+.dark .dark\:stroke-primary {
+  stroke: #92FCDB;
 }
 
 .dark .dark\:text-primary {

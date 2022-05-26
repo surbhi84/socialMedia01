@@ -27,7 +27,9 @@ function App() {
     >
       <Link to="/test">twopi</Link>
       <Header />
+      {/* <div className="flex flex-col items-center h-screen w-screen"> */}
       <AppRoutes />
+      {/* </div> */}
     </div>
   );
 }

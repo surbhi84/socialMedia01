@@ -7,13 +7,13 @@ import { NavLink } from "react-router-dom";
 
 export const Sidebar = () => {
   return (
-    <div className=" flex flex-col w-48 rounded-lg dark:bg-darker">
+    <div className=" flex md:flex-col md:w-48 h-12 md:h-full rounded-md dark:text-primary dark:bg-darker overflow-y-scroll sm:overflow-auto scrollbar-hide ">
       <NavLink
         to="/home"
         className={({ isActive }) =>
           isActive
-            ? "flex flex-row items-center gap-3 text-xl px-3 py-2 bg-primaryLight rounded-lg dark:text-primary dark:bg-darkCol"
-            : "flex flex-row items-center gap-3 text-xl p-3 "
+            ? " flex flex-row items-center md:gap-3 gap-1 text-xl px-3 py-2 bg-primaryLight rounded-md  dark:bg-darkLight "
+            : " flex flex-row items-center md:gap-3 gap-1 text-xl p-3 "
         }
       >
         <AiOutlineHome />
@@ -23,8 +23,8 @@ export const Sidebar = () => {
         to="/explore"
         className={({ isActive }) =>
           isActive
-            ? "flex flex-row items-center gap-3 text-xl p-4 text-primary"
-            : "flex flex-row items-center gap-3 text-xl p-4 "
+            ? " flex flex-row items-center  md:gap-3 gap-1 text-xl px-3 py-2 bg-primaryLight rounded-md dark:bg-darkLight "
+            : " flex flex-row items-center  md:gap-3 gap-1 text-xl p-4 "
         }
       >
         <MdOutlineScreenSearchDesktop /> Explore
@@ -33,8 +33,8 @@ export const Sidebar = () => {
         to="/profile"
         className={({ isActive }) =>
           isActive
-            ? "flex flex-row items-center gap-3 text-xl p-4 text-primary"
-            : "flex flex-row items-center gap-3 text-xl p-4 "
+            ? " flex flex-row items-center md:gap-3 gap-1 text-xl px-3 py-2 bg-primaryLight rounded-md dark:bg-darkLight "
+            : " flex flex-row items-center md:gap-3 gap-1 text-xl p-4 "
         }
       >
         <AiOutlineUser /> Profile
@@ -43,8 +43,8 @@ export const Sidebar = () => {
         to="/notifications"
         className={({ isActive }) =>
           isActive
-            ? "flex flex-row items-center gap-3 text-xl p-4 text-primary"
-            : "flex flex-row items-center gap-3 text-xl p-4 "
+            ? " flex flex-row items-center md:gap-3 gap-1text-xl px-3 py-2 bg-primaryLight rounded-md dark:bg-darkLight "
+            : " flex flex-row items-center md:gap-3 gap-1 text-xl p-4 "
         }
       >
         <IoNotificationsOutline /> Notifications
@@ -53,8 +53,8 @@ export const Sidebar = () => {
         to="/bookmarks"
         className={({ isActive }) =>
           isActive
-            ? "flex flex-row items-center gap-3 text-xl p-4 text-primary"
-            : "flex flex-row items-center gap-3 text-xl p-4 "
+            ? " flex flex-row items-center md:gap-3 gap-1 text-xl px-3 py-2 bg-primaryLight rounded-md dark:bg-darkLight "
+            : " flex flex-row items-center md:gap-3 gap-1 text-xl p-4 "
         }
       >
         <HiOutlineBookmark /> Bookmarks

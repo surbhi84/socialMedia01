@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 function App() {
   const darkTheme = useAppSelector((state) => state.theme);
   const dispatch = useDispatch();
+
   useEffect(() => {
     let theme = localStorage.getItem("darkTheme");
     if (theme !== undefined) {
@@ -27,9 +28,7 @@ function App() {
     >
       <Link to="/test">twopi</Link>
       <Header />
-      {/* <div className="flex flex-col items-center h-screen w-screen"> */}
       <AppRoutes />
-      {/* </div> */}
     </div>
   );
 }

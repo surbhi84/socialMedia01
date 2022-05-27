@@ -15,7 +15,7 @@ export const Header = () => {
   };
 
   return (
-    <header className=" flex flex-row p-2 gap-1 dark:bg-darkCol">
+    <header className=" flex flex-row p-2 pb-2 gap-1 dark:bg-darkCol">
       <img src="/assets/pin.svg" alt="logo image" className=" h-8 " />
       <Link to="/">
         <h1 className=" text-2xl self-center text-darkCol dark:text-primary">

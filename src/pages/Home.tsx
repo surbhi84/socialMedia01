@@ -1,4 +1,4 @@
-import { Createpost, PostCard, Sidebar } from "components";
+import { Createpost, PostCard, Searchbar, Sidebar } from "components";
 
 export const Home = () => {
   return (
@@ -9,6 +9,9 @@ export const Home = () => {
       <div className="flex flex-col sm:3/5 md:w-2/4 lg:w-2/4 gap-2">
         <Createpost />
         <PostCard />
+      </div>
+      <div>
+        <Searchbar />
       </div>
     </div>
   );

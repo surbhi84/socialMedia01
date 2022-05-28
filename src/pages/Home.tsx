@@ -1,4 +1,10 @@
-import { Createpost, PostCard, Searchbar, Sidebar } from "components";
+import {
+  Createpost,
+  PostCard,
+  Searchbar,
+  Sidebar,
+  SuggestionBox,
+} from "components";
 
 export const Home = () => {
   return (
@@ -12,6 +18,7 @@ export const Home = () => {
       </div>
       <div>
         <Searchbar />
+        <SuggestionBox />
       </div>
     </div>
   );

@@ -8,3 +8,4 @@ export { Error } from "./Error";
 export { Createpost } from "./Createpost";
 export { PostCard } from "./PostCard";
 export { Searchbar } from "./Searchbar";
+export { SuggestionBox } from "./SuggestionBox";

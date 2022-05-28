@@ -22,7 +22,7 @@ function App() {
 
   return (
     <div
-      className={`App flex flex-col h-screen w-screen ${
+      className={`App flex flex-col h-screen w-screen overflow-y-scroll  ${
         darkTheme ? "dark " : ""
       }`}
     >

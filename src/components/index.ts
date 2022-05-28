@@ -6,3 +6,4 @@ export { SignupComponent } from "./signupComponent/SignupComponent";
 export { Sidebar } from "./Sidebar";
 export { Error } from "./Error";
 export { Createpost } from "./Createpost";
+export { PostCard } from "./PostCard";

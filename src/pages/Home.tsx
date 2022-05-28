@@ -1,10 +1,15 @@
-import { Createpost, Sidebar } from "components";
+import { Createpost, PostCard, Sidebar } from "components";
 
 export const Home = () => {
   return (
-    <div className="flex flex-col md:flex-row gap-4 h-full w-full md:justify-center dark:bg-darkCol">
+    <div className="flex flex-col sm:flex-row gap-4 p-4 w-full sm:justify-center dark:bg-darkCol dark:text-white  ">
+      {/* <div className=""> */}
       <Sidebar />
-      <Createpost />
+      {/* </div> */}
+      <div className="flex flex-col sm:3/5 md:w-2/4 lg:w-2/4 gap-2">
+        <Createpost />
+        <PostCard />
+      </div>
     </div>
   );
 };

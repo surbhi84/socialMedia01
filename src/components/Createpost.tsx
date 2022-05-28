@@ -5,7 +5,7 @@ import {
 
 export const Createpost = () => {
   return (
-    <div className="flex flex-col gap-4 p-2 xs:px-8 w-full md:w-3/5 rounded-lg py-4 dark:bg-darker dark:text-primary ">
+    <div className="flex flex-col gap-4 p-3 rounded-lg dark:bg-darker dark:text-primary">
       <div className=" flex flex-row gap-2 ">
         <img
           src="/assets/bunny1.jpg"
@@ -27,7 +27,7 @@ export const Createpost = () => {
         </div>
       </div>
 
-      <button className="bg-primaryLight px-2 py-1 rounded-md dark:bg-darkLight hover:scale-105 duration-100">
+      <button className="bg-primaryLight px-2 py-1 w-44 rounded-md dark:bg-darkLight hover:scale-105 duration-100 ml-auto">
         Add post
       </button>
     </div>

@@ -20,7 +20,7 @@ export const SignupComponent = () => {
 
   return (
     <>
-      <div className=" flex flex-col items-center justify-center h-full gap-8 dark:text-primary dark:bg-darkCol ">
+      <div className=" flex flex-col items-center justify-center h-screen gap-8 dark:text-primary dark:bg-darkCol ">
         {/* EMAIL */}
         <input
           type="text"

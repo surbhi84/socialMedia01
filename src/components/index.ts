@@ -7,5 +7,6 @@ export { Sidebar } from "./Sidebar";
 export { Error } from "./Error";
 export { Createpost } from "./Createpost";
 export { PostCard } from "./PostCard";
+export { DisplayPosts } from "./DisplayPosts";
 export { Searchbar } from "./Searchbar";
 export { SuggestionBox } from "./SuggestionBox";

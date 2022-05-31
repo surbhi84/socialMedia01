@@ -14,3 +14,15 @@ export const signupCall = (
 ) => {
   return axios.post("/api/auth/signup", { username, password, email });
 };
+
+// GET USERS
+
+export const getUsers = () => {
+  return axios.get("/api/users");
+};
+
+// GET POSTS
+
+export const getPosts = () => {
+  return axios.get("/api/posts");
+};

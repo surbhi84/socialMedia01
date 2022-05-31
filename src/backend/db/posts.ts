@@ -7,6 +7,28 @@ import { formatDate } from "../utils/authUtils";
  * You can add default posts of your wish with different attributes
  * */
 
+export interface postType {
+  _id: string;
+  content: string;
+  likes: { likeCount: number; likedBy: Array; dislikedBy: Array };
+  username: string;
+  firstName: string;
+  lastName: string;
+  createdAt: string;
+  updatedAt: string;
+  comments: [
+    {
+      _id: string;
+      username: string;
+      text: string;
+      votes: {
+        upvotedBy: Array;
+        downvotedBy: Array;
+      };
+    }
+  ];
+}
+
 export const posts = [
   {
     _id: uuid(),
@@ -17,7 +39,9 @@ export const posts = [
       likedBy: [],
       dislikedBy: [],
     },
-    username: "adarshbalika",
+    username: "jgupta36",
+    firstName: "Jatin",
+    lastName: "Gupta",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     comments: [
@@ -50,7 +74,9 @@ export const posts = [
       likedBy: [],
       dislikedBy: [],
     },
-    username: "shubhamsoni",
+    username: "reddyNavin",
+    firstName: "Navin",
+    lastName: "Reddy",
 
     comments: [
       {

@@ -4,6 +4,7 @@ import { initialState } from "./signupReducer";
 import { NavigateFunction } from "react-router-dom";
 import { AnyAction } from "@reduxjs/toolkit";
 import { Dispatch } from "react";
+import { setUser } from "appRedux/userSlice";
 
 export async function signupHandler(
   signupInputs: initialState,
@@ -28,8 +29,9 @@ export async function signupHandler(
       signupInputs.pwd,
       signupInputs.email
     ).then((res) => res.data);
-    navigate("/home");
     localStorage.setItem("token", response.encodedtoken);
+    dispatch(setUser(response));
+    navigate("/home");
   } catch (err) {
     console.error(err);
   }

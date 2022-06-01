@@ -79,9 +79,13 @@ export const createPostHandler = function (schema, request) {
       );
     }
     const { postData } = JSON.parse(request.requestBody);
+
     const post = {
       _id: uuid(),
       ...postData,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      comments: [],
       likes: {
         likeCount: 0,
         likedBy: [],
@@ -156,6 +160,7 @@ export const editPostHandler = function (schema, request) {
 
 export const likePostHandler = function (schema, request) {
   const user = requiresAuth.call(this, request);
+  console.log(user);
   try {
     if (!user) {
       return new Response(
@@ -169,6 +174,7 @@ export const likePostHandler = function (schema, request) {
       );
     }
     const postId = request.params.postId;
+    console.log(postId);
     const post = schema.posts.findBy({ _id: postId }).attrs;
     if (post.likes.likedBy.some((currUser) => currUser._id === user._id)) {
       return new Response(

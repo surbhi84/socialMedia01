@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { setDarkTheme } from "appRedux/themeSlice";
 import { AppRoutes, Header } from "./components";
 import { Link } from "react-router-dom";
+import { setToken } from "appRedux/userSlice";
 
 function App() {
   const darkTheme = useAppSelector((state) => state.theme);
@@ -19,6 +20,11 @@ function App() {
   //     }
   //   }
   // }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    dispatch(setToken(token ?? ""));
+  }, []);
 
   useEffect(() => {
     let theme = localStorage.getItem("darkTheme");

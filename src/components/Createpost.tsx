@@ -1,14 +1,20 @@
+import { postPost } from "apiCalls";
+import { setPosts } from "appRedux/miscSlice";
+import { useAppSelector } from "hooks";
 import { useRef, useState } from "react";
 import {
   MdOutlineAddReaction,
   MdOutlineAddPhotoAlternate,
 } from "react-icons/md";
+import { useDispatch } from "react-redux";
 
 export const Createpost = () => {
-  const [uploadedImg, setUploadedImg] = useState<FileList>();
+  const userData = useAppSelector((state) => state.userData);
+  const [uploadedImg, setUploadedImg] = useState<FileList>({} as FileList);
   const [postText, setPostText] = useState("");
   const [showEmoji, setShowEmoji] = useState(false);
   const heightRef = useRef<HTMLTextAreaElement>(null);
+  const dispatch = useDispatch();
 
   const emojiArray = [
     "😅",
@@ -29,6 +35,21 @@ export const Createpost = () => {
     "♻",
   ];
 
+  async function postHandler() {
+    try {
+      const response = await postPost(
+        postText,
+        uploadedImg,
+        userData.encodedToken
+      ).then((res) => res.data);
+      console.log(response);
+      dispatch(setPosts(response));
+      setPostText("");
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   return (
     <div className="flex flex-col gap-4 p-3 rounded-lg dark:bg-darker dark:text-primary">
       {/* to hide emojitray upon random click */}
@@ -42,7 +63,7 @@ export const Createpost = () => {
         <img
           src="/assets/bunny1.jpg"
           alt="avatar"
-          className="w-12 h-12 rounded-full  "
+          className=" w-12 h-12 rounded-full "
         />
         <div className="flex flex-col border border-primaryDark dark:border-primary rounded-xl px-2 py-1 h-fit w-full dark:bg-darkCol dark:hover:bg-darkLight ">
           <textarea
@@ -58,8 +79,9 @@ export const Createpost = () => {
             Object.values(uploadedImg).map((i) => {
               return (
                 <img
+                  key={i.name}
                   src={window.URL.createObjectURL(i)}
-                  alt=""
+                  alt={i.name}
                   className="h-20 w-32 my-1"
                 />
               );
@@ -100,7 +122,6 @@ export const Createpost = () => {
                   className="hidden"
                   multiple
                   onChange={(e) => {
-                    console.log(e.target.files);
                     if (e?.target?.files) setUploadedImg(e.target.files);
                   }}
                 />
@@ -111,7 +132,10 @@ export const Createpost = () => {
         </div>
       </div>
 
-      <button className="bg-primaryLight px-2 py-1 w-44 rounded-md dark:bg-darkLight hover:scale-105 duration-100 ml-auto">
+      <button
+        className="bg-primaryLight px-2 py-1 w-44 rounded-md dark:bg-darkLight hover:scale-105 duration-100 ml-auto"
+        onClick={postHandler}
+      >
         Add post
       </button>
     </div>

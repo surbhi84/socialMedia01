@@ -2,18 +2,22 @@ import { HiEye, HiEyeOff } from "react-icons/hi";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginCall } from "apiCalls";
+import { useDispatch } from "react-redux";
+import { setUser } from "appRedux/userSlice";
 
 export const LoginComponent = () => {
   const [show, setShow] = useState(false);
-  const [username, setUsername] = useState("KukretiSurbhi99");
+  const [username, setUsername] = useState("sskukreti");
   const [pwd, setPwd] = useState("collidingatoms");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   async function loginHandler(username: string, pwd: string) {
     try {
       const response = await loginCall(username, pwd).then((res) => res.data);
+      localStorage.setItem("token", response.encodedToken);
+      dispatch(setUser(response));
       navigate("/home");
-      localStorage.setItem("token", response.encodedtoken);
     } catch (err) {
       console.error(err);
     }

@@ -7,7 +7,7 @@ export const Error = () => {
   const error = useAppSelector((state) => state.misc.error);
   const dispatch = useDispatch();
   const [show, setShow] = useState(true);
-  console.log(error);
+
   useEffect(() => {
     let id = setTimeout(() => {
       setShow(false);

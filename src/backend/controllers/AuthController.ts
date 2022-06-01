@@ -19,8 +19,8 @@ export const signupHandler = function (schema, request) {
   const { username, password, ...rest } = JSON.parse(request.requestBody);
   try {
     // check if username already exists
-    const foundUser = schema.users.findBy({ username: username });
-    if (foundUser) {
+    const user = schema.users.findBy({ username: username });
+    if (user) {
       return new Response(
         422,
         {},
@@ -67,9 +67,9 @@ export const signupHandler = function (schema, request) {
 export const loginHandler = function (schema, request) {
   const { username, password } = JSON.parse(request.requestBody);
   try {
-    const foundUser = schema.users.findBy({ username: username });
+    const user = schema.users.findBy({ username: username });
 
-    if (!foundUser) {
+    if (!user) {
       return new Response(
         404,
         {},
@@ -80,13 +80,13 @@ export const loginHandler = function (schema, request) {
         }
       );
     }
-    if (password === foundUser.password) {
+    if (password === user.password) {
       const encodedToken = sign(
-        { _id: foundUser._id, username },
+        { _id: user._id, username },
         process.env.REACT_APP_JWT_SECRET
       );
 
-      return new Response(200, {}, { foundUser, encodedToken });
+      return new Response(200, {}, { user, encodedToken });
     }
     return new Response(
       401,

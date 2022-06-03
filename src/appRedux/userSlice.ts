@@ -45,8 +45,9 @@ export const userSlice = createSlice({
     setToken: (state, action: PayloadAction<string>) => {
       state.encodedToken = action.payload;
     },
+    removeUser: () => initialState,
   },
 });
 
-export const { setUser, setToken } = userSlice.actions;
+export const { setUser, setToken, removeUser } = userSlice.actions;
 export default userSlice.reducer;

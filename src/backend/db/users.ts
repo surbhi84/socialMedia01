@@ -23,7 +23,7 @@ import { formatDate } from "../utils/authUtils";
 
 export const users = [
   {
-    _id: uuid(),
+    _id: "0987",
     firstName: "Surbhi",
     lastName: "Kukreti",
     username: "sskukreti",
@@ -34,7 +34,7 @@ export const users = [
   },
 
   {
-    _id: uuid(),
+    _id: "0986",
     firstName: "Shivam",
     lastName: "Pandey",
     username: "sjtgshivam",
@@ -44,7 +44,7 @@ export const users = [
     updatedAt: formatDate(),
   },
   {
-    _id: uuid(),
+    _id: "0985",
     firstName: "Navin",
     lastName: "Reddy",
     username: "reddyNavin",
@@ -54,7 +54,7 @@ export const users = [
     updatedAt: formatDate(),
   },
   {
-    _id: uuid(),
+    _id: "0984",
     firstName: "Avinash",
     lastName: "Patel",
     username: "patelAvi",
@@ -64,7 +64,7 @@ export const users = [
     updatedAt: formatDate(),
   },
   {
-    _id: uuid(),
+    _id: "0983",
     firstName: "Jatin",
     lastName: "Gupta",
     username: "jgupta36",
@@ -74,7 +74,7 @@ export const users = [
     updatedAt: formatDate(),
   },
   {
-    _id: uuid(),
+    _id: "0982",
     firstName: "Sheldon",
     lastName: "Cooper",
     username: "coopershelly",

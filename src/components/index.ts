@@ -10,3 +10,6 @@ export { PostCard } from "./PostCard";
 export { DisplayPosts } from "./DisplayPosts";
 export { Searchbar } from "./Searchbar";
 export { SuggestionBox } from "./SuggestionBox";
+export { Comment } from "./Comment";
+export { AddComment } from "./AddComment";
+export { LogoutBtn } from "./LogoutBtn";

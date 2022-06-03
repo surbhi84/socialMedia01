@@ -58,6 +58,7 @@ export const LoginComponent = () => {
       >
         Login
       </button>
+
       <div className="flex flex-col items-center">
         or
         <Link
@@ -65,6 +66,7 @@ export const LoginComponent = () => {
           className="relative group overflow-hidden px-6 h-12 rounded-full flex space-x-2 items-center "
         >
           <span className="relative text-sm">Create new Account</span>
+
           <div className="flex items-center -space-x-3 translate-x-3">
             <div className="w-2.5 h-[1.6px] rounded bg-primaryDark dark:bg-primary origin-left scale-x-0 transition duration-300 group-hover:scale-x-100"></div>
             <svg

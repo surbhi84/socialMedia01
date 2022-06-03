@@ -1,7 +1,7 @@
 import { postPost } from "apiCalls";
 import { setPosts } from "appRedux/miscSlice";
 import { useAppSelector } from "hooks";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   MdOutlineAddReaction,
   MdOutlineAddPhotoAlternate,
@@ -14,6 +14,7 @@ export const Createpost = () => {
   const [postText, setPostText] = useState("");
   const [showEmoji, setShowEmoji] = useState(false);
   const heightRef = useRef<HTMLTextAreaElement>(null);
+  const imgRef = useRef<Array<string>>([]);
   const dispatch = useDispatch();
 
   const emojiArray = [
@@ -42,13 +43,26 @@ export const Createpost = () => {
         uploadedImg,
         userData.encodedToken
       ).then((res) => res.data);
-      console.log(response);
       dispatch(setPosts(response));
       setPostText("");
+      setUploadedImg({} as FileList);
+      imgRef.current.forEach((i) => {
+        window.URL.revokeObjectURL(i);
+      });
+      imgRef.current = [];
     } catch (err) {
       console.error(err);
     }
   }
+
+  useEffect(() => {
+    return () => {
+      imgRef.current.forEach((i) => {
+        window.URL.revokeObjectURL(i);
+      });
+      imgRef.current = [];
+    };
+  }, []);
 
   return (
     <div className="flex flex-col gap-4 p-3 rounded-lg dark:bg-darker dark:text-primary">
@@ -77,10 +91,12 @@ export const Createpost = () => {
 
           {uploadedImg &&
             Object.values(uploadedImg).map((i) => {
+              const localVar = window.URL.createObjectURL(i);
+              imgRef.current.push(localVar);
               return (
                 <img
                   key={i.name}
-                  src={window.URL.createObjectURL(i)}
+                  src={localVar}
                   alt={i.name}
                   className="h-20 w-32 my-1"
                 />
@@ -114,20 +130,20 @@ export const Createpost = () => {
               </div>
             )}
 
-            <span className=" flex flex-row items-center px-3 py-1 gap-1 w-fit rounded-full dark:bg-darkCol hover:bg-primaryLight dark:hover:bg-darkCol">
-              <label className=" hidden sm:inline ">
-                Add Images
-                <input
-                  type="file"
-                  className="hidden"
-                  multiple
-                  onChange={(e) => {
-                    if (e?.target?.files) setUploadedImg(e.target.files);
-                  }}
-                />
-              </label>
-              <MdOutlineAddPhotoAlternate className=" text-xl " />
-            </span>
+            <label className=" flex flex-row items-center px-3 py-1 gap-1 w-fit rounded-full dark:bg-darkCol hover:bg-primaryLight dark:hover:bg-darkCol">
+              <span className=" hidden sm:inline "> Add Images</span>
+              <input
+                type="file"
+                className="hidden"
+                multiple
+                onChange={(e) => {
+                  if (e?.target?.files) setUploadedImg(e.target.files);
+                }}
+              />
+              <span>
+                <MdOutlineAddPhotoAlternate className=" text-xl " />
+              </span>
+            </label>
           </div>
         </div>
       </div>

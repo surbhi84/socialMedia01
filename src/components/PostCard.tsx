@@ -3,22 +3,42 @@ import { postType } from "backend/db/posts";
 
 import { RiHeart2Line, RiHeart2Fill } from "react-icons/ri";
 import { BiCommentDetail } from "react-icons/bi";
-import { HiOutlineBookmark, HiBookmark } from "react-icons/hi";
-import { dislikePost, likePost } from "apiCalls";
+import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
+import { addBookmark, dislikePost, likePost, removeBookmark } from "apiCalls";
 import { useAppSelector } from "hooks";
 
 export const PostCard = ({ post }: { post: postType }) => {
   const userData = useAppSelector((state) => state.userData);
-  console.log(userData);
-
   const [like, setLike] = useState(false);
   const [bookmark, setBookmark] = useState(false);
   const postDate = new Date(post.createdAt);
   const postTime = new Date(post.createdAt).getTime() / (1000 * 60);
   const today = Date.now() / (1000 * 60);
+
   //  timeDifference in minutes
   const timeDifference = Number((today - postTime).toFixed());
-  //   console.log(postTime, today, postDate);
+
+  const addLikeHandler = async () => {
+    await likePost(post._id, userData.encodedToken);
+    setLike(true);
+  };
+
+  const removeLikeHandler = async () => {
+    await dislikePost(post._id, userData.encodedToken);
+    setLike(false);
+  };
+
+  const addBookmarkHandler = async () => {
+    setBookmark(true);
+    const res = await addBookmark(post._id, userData.encodedToken);
+    console.log(res);
+  };
+
+  const removeBookmarkHandler = async () => {
+    setBookmark(false);
+    const res = await removeBookmark(post._id, userData.encodedToken);
+  };
+
   return (
     <div className="flex flex-row gap-2 dark:bg-darkLight rounded-lg p-3 my-3 w-full">
       <img
@@ -44,32 +64,25 @@ export const PostCard = ({ post }: { post: postType }) => {
           </div>
           <div className=" flex flex-col mt-2 gap-1 ">
             <p>{post.content}</p>
-            {post.img &&
-              post.img.map((i) => (
-                <img
-                  src={window.URL.createObjectURL(i)}
-                  alt="user post"
-                  className=" h-60 "
-                />
-              ))}
+            {
+              post?.img?.length > 0 && (
+                //   post.img.map((i) => (
+                <img src={post.img} alt="user post" className=" h-60 " />
+              )
+              //   ))
+            }
           </div>
         </div>
         <div className=" flex flex-row items-center gap-6 ml-auto text-primaryDark dark:text-primary text-2xl ">
           <span className=" flex items-center gap-2 ">
             {like ? (
               <RiHeart2Fill
-                onClick={async () => {
-                  setLike(false);
-                  await dislikePost(post._id, userData.encodedToken);
-                }}
+                onClick={removeLikeHandler}
                 className=" hover:scale-110 "
               />
             ) : (
               <RiHeart2Line
-                onClick={() => async () => {
-                  setLike(true);
-                  await likePost(post._id, userData.encodedToken);
-                }}
+                onClick={addLikeHandler}
                 className=" hover:scale-110 "
               />
             )}
@@ -81,13 +94,13 @@ export const PostCard = ({ post }: { post: postType }) => {
             <span className=" text-xl ">{post.comments.length}</span>
           </span>
           {bookmark ? (
-            <HiBookmark
-              onClick={() => setBookmark(false)}
+            <BsBookmarkFill
+              onClick={removeBookmarkHandler}
               className=" hover:scale-110 "
             />
           ) : (
-            <HiOutlineBookmark
-              onClick={() => setBookmark(true)}
+            <BsBookmark
+              onClick={addBookmarkHandler}
               className=" hover:scale-110 "
             />
           )}

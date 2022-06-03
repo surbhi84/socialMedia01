@@ -29,44 +29,72 @@ export const getPosts = () => {
 
 // ADD POST
 
-function stringifyFileObject(arrWithFiles: FileList) {
-  const arrData = [];
-  for (let i = 0; i < arrWithFiles.length; i++) {
-    const file = arrWithFiles[i];
-    const obj = {
-      lastModified: file.lastModified,
-      name: file.name,
-      size: file.size,
-      type: file.type,
-      webkitRelativePath: file.webkitRelativePath,
-    };
-    arrData.push(obj);
-  }
-  return arrData;
-}
-
 export const postPost = (post: string, img: FileList, encodedToken: string) => {
-  console.log(img, "hulk");
-  return axios.post(
-    "/api/posts",
-    { postData: { content: post, img } },
-    { headers: { authorization: encodedToken } }
-  );
+  const formData = new FormData();
+  formData.set("content", post);
+  formData.set("img", img[0]);
+
+  return axios.post("/api/posts", formData, {
+    headers: {
+      authorization: encodedToken,
+    },
+  });
 };
 
 // LIKE POST
 
 export const likePost = (postId: string, encodedToken: string) => {
   console.log(postId, encodedToken);
-  return axios.post(`/api/posts/like/${postId}`, {
-    headers: { authorization: encodedToken },
-  });
+  return axios.post(
+    `/api/posts/like/${postId}`,
+    {},
+    {
+      headers: { authorization: encodedToken },
+    }
+  );
 };
 
 // DISLIKE POST
 
 export const dislikePost = (postId: string, encodedToken: string) => {
-  return axios.post(`/api/posts/dislike/${postId}`, {
+  console.log(postId, encodedToken);
+  return axios.post(
+    `/api/posts/dislike/${postId}`,
+    {},
+    {
+      headers: { authorization: encodedToken },
+    }
+  );
+};
+
+// GET BOOKMARK
+
+export const getBookmarks = (encodedToken: string) => {
+  return axios.get("/api/users/bookmark", {
     headers: { authorization: encodedToken },
   });
+};
+
+// ADD BOOKMARK
+
+export const addBookmark = (postId: string, encodedToken: string) => {
+  return axios.post(
+    `/api/users/bookmark/${postId}`,
+    {},
+    {
+      headers: { authorization: encodedToken },
+    }
+  );
+};
+
+// BOOKMARK
+
+export const removeBookmark = (postId: string, encodedToken: string) => {
+  return axios.post(
+    `/api/users/remove-bookmark/${postId}`,
+    {},
+    {
+      headers: { authorization: encodedToken },
+    }
+  );
 };

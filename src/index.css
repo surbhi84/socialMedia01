@@ -562,6 +562,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 100%;
 }
 
+.h-8 {
+  height: 2rem;
+}
+
 .h-12 {
   height: 3rem;
 }
@@ -570,10 +574,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
-}
-
-.h-8 {
-  height: 2rem;
 }
 
 .h-20 {
@@ -713,16 +713,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   justify-items: center;
 }
 
+.gap-1 {
+  gap: 0.25rem;
+}
+
 .gap-4 {
   gap: 1rem;
 }
 
 .gap-2 {
   gap: 0.5rem;
-}
-
-.gap-1 {
-  gap: 0.25rem;
 }
 
 .gap-8 {
@@ -761,6 +761,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   overflow-x: scroll;
 }
 
+.rounded-md {
+  border-radius: 0.375rem;
+}
+
 .rounded-lg {
   border-radius: 0.5rem;
 }
@@ -771,10 +775,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .rounded-xl {
   border-radius: 0.75rem;
-}
-
-.rounded-md {
-  border-radius: 0.375rem;
 }
 
 .rounded-sm {
@@ -793,14 +793,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-bottom-width: 2px;
 }
 
-.border-primaryDark {
-  --tw-border-opacity: 1;
-  border-color: rgb(24 203 175 / var(--tw-border-opacity));
-}
-
 .border-primary {
   --tw-border-opacity: 1;
   border-color: rgb(146 252 219 / var(--tw-border-opacity));
+}
+
+.border-primaryDark {
+  --tw-border-opacity: 1;
+  border-color: rgb(24 203 175 / var(--tw-border-opacity));
 }
 
 .bg-transparent {
@@ -826,12 +826,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   stroke: #18CBAF;
 }
 
-.p-3 {
-  padding: 0.75rem;
-}
-
 .p-1 {
   padding: 0.25rem;
+}
+
+.p-3 {
+  padding: 0.75rem;
 }
 
 .p-2 {
@@ -895,6 +895,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-weight: 500;
 }
 
+.text-primaryDark {
+  --tw-text-opacity: 1;
+  color: rgb(24 203 175 / var(--tw-text-opacity));
+}
+
 .text-darkCol {
   --tw-text-opacity: 1;
   color: rgb(55 52 62 / var(--tw-text-opacity));
@@ -903,11 +908,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-primary {
   --tw-text-opacity: 1;
   color: rgb(146 252 219 / var(--tw-text-opacity));
-}
-
-.text-primaryDark {
-  --tw-text-opacity: 1;
-  color: rgb(24 203 175 / var(--tw-text-opacity));
 }
 
 .outline-none {

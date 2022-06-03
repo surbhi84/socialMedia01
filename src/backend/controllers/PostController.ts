@@ -78,11 +78,14 @@ export const createPostHandler = function (schema, request) {
         }
       );
     }
-    const { postData } = JSON.parse(request.requestBody);
+
+    const content = request.requestBody.get("content");
+    const img = request.requestBody.get("img");
 
     const post = {
       _id: uuid(),
-      ...postData,
+      content,
+      img: window.URL.createObjectURL(img),
       firstName: user.firstName,
       lastName: user.lastName,
       comments: [],
@@ -160,7 +163,6 @@ export const editPostHandler = function (schema, request) {
 
 export const likePostHandler = function (schema, request) {
   const user = requiresAuth.call(this, request);
-  console.log(user);
   try {
     if (!user) {
       return new Response(
@@ -174,7 +176,7 @@ export const likePostHandler = function (schema, request) {
       );
     }
     const postId = request.params.postId;
-    console.log(postId);
+    debugger;
     const post = schema.posts.findBy({ _id: postId }).attrs;
     if (post.likes.likedBy.some((currUser) => currUser._id === user._id)) {
       return new Response(

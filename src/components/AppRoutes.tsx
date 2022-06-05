@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import TwopiRest from "twopi-rest";
 import {
   Bookmarks,
   Explore,
@@ -10,7 +11,6 @@ import {
 } from "pages";
 import { SignupComponent } from "./signupComponent/SignupComponent";
 import { LoginComponent } from "./LoginComponent";
-import TwopiRest from "twopi-rest";
 import { PrivateRoutes } from "./PrivateRoutes";
 import { PostPage } from "./PostPage";
 

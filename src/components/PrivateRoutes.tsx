@@ -3,5 +3,6 @@ import { Navigate, Outlet } from "react-router-dom";
 
 export const PrivateRoutes = () => {
   const token = useAppSelector((state) => state.userData.encodedToken);
-  return <>{token !== "" ? <Outlet /> : <Navigate to="/" />}</>;
+  console.log(token);
+  return <> {token !== "" ? <Outlet /> : <Navigate to="/" />}</>;
 };

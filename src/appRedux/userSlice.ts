@@ -2,21 +2,23 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { postType } from "backend/db/posts";
 
 interface userType {
+  bookmarks: Array<any>;
+  createdAt: string;
+  email: string;
+  firstName: string;
+  followers: Array<any>;
+  following: Array<any>;
+  id: string;
+  lastName: string;
+  password: string;
+  updatedAt: string;
+  username: string;
+  _id: string;
+}
+
+interface userObjectType {
   encodedToken: string;
-  user: {
-    bookmarks: Array<any>;
-    createdAt: string;
-    email: string;
-    firstName: string;
-    followers: Array<any>;
-    following: Array<any>;
-    id: string;
-    lastName: string;
-    password: string;
-    updatedAt: string;
-    username: string;
-    _id: string;
-  };
+  user: userType;
 }
 
 const initialState = {
@@ -41,8 +43,9 @@ export const userSlice = createSlice({
   name: "userData",
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<userType>) =>
-      (state = action.payload),
+    setUser: (state, action: PayloadAction<userType>) => {
+      state.user = action.payload;
+    },
     setToken: (state, action: PayloadAction<string>) => {
       state.encodedToken = action.payload;
     },

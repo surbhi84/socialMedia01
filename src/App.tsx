@@ -17,8 +17,11 @@ function App() {
       try {
         const token = localStorage.getItem("token") ?? "";
         if (token !== "") {
-          const user = await getUserFromToken(token).then((res) => res.data);
+          const user = await getUserFromToken(token).then(
+            (res) => res.data.user
+          );
           dispatch(setToken(token));
+          console.log(user);
           dispatch(setUser(user));
         }
       } catch (err) {

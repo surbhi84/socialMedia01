@@ -54,7 +54,7 @@ export const PostCard = ({ post }: { post: postType }) => {
       />
       <div className=" flex flex-col gap-2 w-full ">
         <div>
-          <div className="flex items-center gap-1 w-full text-primaryDark dark:text-primary ">
+          <div className="flex items-center flex-wrap gap-1 w-full text-primaryDark dark:text-primary ">
             <h4>{post.firstName + " " + post.lastName} </h4>
             <span className=" text-primaryDark"> @{post.username}</span>
             <span className="h-1 w-1 rounded-full bg-primaryDark "></span>

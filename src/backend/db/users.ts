@@ -6,7 +6,6 @@ import { formatDate } from "../utils/authUtils";
  * You can add default users of your wish with different attributes
  * */
 
-//   0:
 //   bookmarks: []
 //   createdAt: "2022-05-30T20:12:36+05:30"
 //   email: "surbhikukreti@gmail.com"

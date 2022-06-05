@@ -75,7 +75,7 @@ export const dislikePost = (postId: string, encodedToken: string) => {
 
 // DELETE POST
 export const deletePost = (postId: string, encodedToken: string) => {
-  return axios.delete(`/api//posts/${postId}`, {
+  return axios.delete(`/api/posts/${postId}`, {
     headers: { authorization: encodedToken },
   });
 };

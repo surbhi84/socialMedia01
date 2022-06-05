@@ -5,6 +5,7 @@ import { isDarkTheme } from "appRedux";
 import { useAppSelector } from "hooks";
 import { Link } from "react-router-dom";
 import { LogoutBtn } from "./LogoutBtn";
+import { setDarkTheme } from "appRedux/themeSlice";
 
 export const Header = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,12 @@ export const Header = () => {
   const themeSetter = () => {
     dispatch(isDarkTheme());
     localStorage.setItem("darkTheme", (!darkTheme).toString());
+    console.log(darkTheme);
+    if (darkTheme === false) {
+      window.document.documentElement.classList.add("dark");
+    } else if (darkTheme === true) {
+      window.document.documentElement.classList.remove("dark");
+    }
   };
 
   return (

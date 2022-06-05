@@ -41,7 +41,7 @@ function App() {
         dispatch(setDarkTheme(false));
       }
     }
-  }, [darkTheme]);
+  }, []);
 
   return (
     <div className={`App flex flex-col h-full w-full `}>

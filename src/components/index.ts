@@ -13,3 +13,4 @@ export { SuggestionBox } from "./SuggestionBox";
 export { Comment } from "./Comment";
 export { AddComment } from "./AddComment";
 export { LogoutBtn } from "./LogoutBtn";
+export { PrivateRoutes } from "./PrivateRoutes";

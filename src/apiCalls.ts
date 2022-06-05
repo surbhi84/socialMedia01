@@ -73,6 +73,13 @@ export const dislikePost = (postId: string, encodedToken: string) => {
   );
 };
 
+// DELETE POST
+export const deletePost = (postId: string, encodedToken: string) => {
+  return axios.delete(`/api//posts/${postId}`, {
+    headers: { authorization: encodedToken },
+  });
+};
+
 // GET BOOKMARK
 
 export const getBookmarks = (encodedToken: string) => {
@@ -93,7 +100,7 @@ export const addBookmark = (postId: string, encodedToken: string) => {
   );
 };
 
-// BOOKMARK
+// REMOVE BOOKMARK
 
 export const removeBookmark = (postId: string, encodedToken: string) => {
   return axios.post(

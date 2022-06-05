@@ -10,6 +10,7 @@ import { useAppSelector } from "hooks";
 import { useDispatch } from "react-redux";
 import { addLike, removeLike } from "appRedux/postSlice";
 import { removeAsBookmark, setAsBookmark } from "appRedux/userSlice";
+import { useNavigate } from "react-router-dom";
 
 export const PostCard = ({ post }: { post: postType }) => {
   const userData = useAppSelector((state) => state.userData);
@@ -17,6 +18,7 @@ export const PostCard = ({ post }: { post: postType }) => {
   const postTime = new Date(post.createdAt).getTime() / (1000 * 60);
   const today = Date.now() / (1000 * 60);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //  timeDifference in minutes
   const timeDifference = Number((today - postTime).toFixed());
@@ -56,7 +58,7 @@ export const PostCard = ({ post }: { post: postType }) => {
             <h4>{post.firstName + " " + post.lastName} </h4>
             <span className=" text-primaryDark"> @{post.username}</span>
             <span className="h-1 w-1 rounded-full bg-primaryDark "></span>
-            <span className=" text-sm ">
+            <span className=" text-sm self-center">
               {timeDifference < 1
                 ? "just now"
                 : timeDifference < 60
@@ -66,7 +68,11 @@ export const PostCard = ({ post }: { post: postType }) => {
                 : `${postDate.toString().slice(3, 10)}`}
             </span>
           </div>
-          <div className=" flex flex-col mt-2 gap-1 ">
+          {/* CONTENT DIV */}
+          <div
+            className=" flex flex-col mt-2 gap-1 "
+            onClick={() => navigate(`/post/${post._id}`)}
+          >
             <p>{post.content}</p>
 
             {post.img !== undefined && (

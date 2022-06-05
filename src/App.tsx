@@ -4,28 +4,30 @@ import { useDispatch } from "react-redux";
 import { setDarkTheme } from "appRedux/themeSlice";
 import { AppRoutes, Header } from "./components";
 import { Link } from "react-router-dom";
-import { setToken } from "appRedux/userSlice";
+import { setToken, setUser } from "appRedux/userSlice";
+import { getUserFromToken } from "apiCalls";
 
 function App() {
   const darkTheme = useAppSelector((state) => state.theme);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   let theme = localStorage.getItem("darkTheme");
-  //   if (theme !== undefined) {
-  //     if (theme === "true") {
-  //       dispatch(setDarkTheme(true));
-  //     } else if (theme === "false") {
-  //       dispatch(setDarkTheme(false));
-  //     }
-  //   }
-  // }, []);
-
+  // For auto login
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    dispatch(setToken(token ?? ""));
+    (async () => {
+      try {
+        const token = localStorage.getItem("token") ?? "";
+        if (token !== "") {
+          const user = await getUserFromToken(token).then((res) => res.data);
+          dispatch(setToken(token));
+          dispatch(setUser(user));
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    })();
   }, []);
 
+  // For Theme
   useEffect(() => {
     let theme = localStorage.getItem("darkTheme");
     if (theme !== undefined) {
@@ -42,7 +44,7 @@ function App() {
   }, [darkTheme]);
 
   return (
-    <div className={`App flex flex-col h-full w-full   `}>
+    <div className={`App flex flex-col h-full w-full `}>
       <Link to="/test">twopi</Link>
       <Header />
       <AppRoutes />

@@ -15,6 +15,13 @@ export const signupCall = (
   return axios.post("/api/auth/signup", { username, password, email });
 };
 
+// GET USER FROM TOKEN
+
+export const getUserFromToken = (encodedToken: string) =>
+  axios.get("/api/auth/tokenlogin", {
+    headers: { authorization: encodedToken },
+  });
+
 // GET USERS
 
 export const getUsers = () => {
@@ -32,7 +39,8 @@ export const getPosts = () => {
 export const postPost = (post: string, img: FileList, encodedToken: string) => {
   const formData = new FormData();
   formData.set("content", post);
-  formData.set("img", img[0]);
+
+  if (Object.keys(img).length > 0) formData.set("img", img[0]);
 
   return axios.post("/api/posts", formData, {
     headers: {
@@ -44,7 +52,6 @@ export const postPost = (post: string, img: FileList, encodedToken: string) => {
 // LIKE POST
 
 export const likePost = (postId: string, encodedToken: string) => {
-  console.log(postId, encodedToken);
   return axios.post(
     `/api/posts/like/${postId}`,
     {},
@@ -57,7 +64,6 @@ export const likePost = (postId: string, encodedToken: string) => {
 // DISLIKE POST
 
 export const dislikePost = (postId: string, encodedToken: string) => {
-  console.log(postId, encodedToken);
   return axios.post(
     `/api/posts/dislike/${postId}`,
     {},

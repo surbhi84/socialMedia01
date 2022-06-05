@@ -1,7 +1,8 @@
 //@ts-nocheck
 import { v4 as uuid } from "uuid";
 import { Response } from "miragejs";
-import { formatDate } from "../utils/authUtils";
+import { formatDate, requiresAuth } from "../utils/authUtils";
+
 const sign = require("jwt-encode");
 
 /**
@@ -106,4 +107,9 @@ export const loginHandler = function (schema, request) {
       }
     );
   }
+};
+
+export const tokenLoginHandler = function (schema, request) {
+  const user = requiresAuth.call(this, request);
+  return new Response(200, {}, { user });
 };

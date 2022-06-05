@@ -85,7 +85,7 @@ export const createPostHandler = function (schema, request) {
     const post = {
       _id: uuid(),
       content,
-      img: window.URL.createObjectURL(img),
+      img: img !== null ? window.URL.createObjectURL(img) : undefined,
       firstName: user.firstName,
       lastName: user.lastName,
       comments: [],
@@ -98,6 +98,7 @@ export const createPostHandler = function (schema, request) {
       createdAt: formatDate(),
       updatedAt: formatDate(),
     };
+
     this.db.posts.insert(post);
     return new Response(201, {}, { posts: this.db.posts });
   } catch (error) {
@@ -176,7 +177,7 @@ export const likePostHandler = function (schema, request) {
       );
     }
     const postId = request.params.postId;
-    debugger;
+
     const post = schema.posts.findBy({ _id: postId }).attrs;
     if (post.likes.likedBy.some((currUser) => currUser._id === user._id)) {
       return new Response(
@@ -232,11 +233,7 @@ export const dislikePostHandler = function (schema, request) {
       );
     }
     if (post.likes.dislikedBy.some((currUser) => currUser._id === user._id)) {
-      return new Response(
-        400,
-        {},
-        { errors: ["Cannot dislike a post that is already disliked. "] }
-      );
+      return new Response(201, {}, { posts: this.db.posts });
     }
     post.likes.likeCount -= 1;
     const updatedLikedBy = post.likes.likedBy.filter(

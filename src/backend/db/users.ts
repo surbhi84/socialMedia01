@@ -24,6 +24,7 @@ import { formatDate } from "../utils/authUtils";
 export const users = [
   {
     _id: "0987",
+    bookmarks: [],
     firstName: "Surbhi",
     lastName: "Kukreti",
     username: "sskukreti",
@@ -35,6 +36,7 @@ export const users = [
 
   {
     _id: "0986",
+    bookmarks: [],
     firstName: "Shivam",
     lastName: "Pandey",
     username: "sjtgshivam",

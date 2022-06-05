@@ -1,5 +1,5 @@
 import { postPost } from "apiCalls";
-import { setPosts } from "appRedux/miscSlice";
+import { setPosts } from "appRedux/postSlice";
 import { useAppSelector } from "hooks";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -42,8 +42,9 @@ export const Createpost = () => {
         postText,
         uploadedImg,
         userData.encodedToken
-      ).then((res) => res.data);
-      dispatch(setPosts(response));
+      );
+
+      dispatch(setPosts(response.data.posts));
       setPostText("");
       setUploadedImg({} as FileList);
       imgRef.current.forEach((i) => {
@@ -89,7 +90,7 @@ export const Createpost = () => {
             style={{ height: heightRef.current?.scrollHeight }}
           />
 
-          {uploadedImg &&
+          {uploadedImg.length > 0 &&
             Object.values(uploadedImg).map((i) => {
               const localVar = window.URL.createObjectURL(i);
               imgRef.current.push(localVar);

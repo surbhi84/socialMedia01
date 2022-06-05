@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { postType } from "backend/db/posts";
 
 interface userType {
   encodedToken: string;
@@ -45,9 +46,23 @@ export const userSlice = createSlice({
     setToken: (state, action: PayloadAction<string>) => {
       state.encodedToken = action.payload;
     },
+    setAsBookmark: (state, action: PayloadAction<postType>) => {
+      state.user.bookmarks.push(action.payload);
+    },
+    removeAsBookmark: (state, action: PayloadAction<postType>) => {
+      state.user.bookmarks = state.user.bookmarks.filter(({ _id }) => {
+        return _id !== action.payload._id;
+      });
+    },
     removeUser: () => initialState,
   },
 });
 
-export const { setUser, setToken, removeUser } = userSlice.actions;
+export const {
+  setUser,
+  setToken,
+  removeUser,
+  setAsBookmark,
+  removeAsBookmark,
+} = userSlice.actions;
 export default userSlice.reducer;

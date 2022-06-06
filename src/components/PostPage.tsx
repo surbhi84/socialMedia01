@@ -7,7 +7,7 @@ import { FiEdit2 } from "react-icons/fi";
 
 import { useParams } from "react-router-dom";
 import { AddComment, Sidebar, PostCard, Comment } from "components";
-import { deletePost } from "apiCalls";
+
 import { DeletePopup } from "./DeletePopup";
 
 export const PostPage = () => {
@@ -16,13 +16,8 @@ export const PostPage = () => {
   const userData = useAppSelector((state) => state.userData);
   const posts = useAppSelector((state) => state.posts.posts);
   const post = posts.find((i) => i._id === postid);
-  console.log(
-    posts,
-    postid,
-    posts.find((i) => i._id === postid)
-  );
 
-  console.log(post);
+  console.log(posts.find((i) => i._id === postid));
 
   return (
     <>
@@ -44,8 +39,13 @@ export const PostPage = () => {
        <BsThreeDots className=" text-primaryDark dark:text-primary text-xl hover:scale-110 ml-auto mx-4" />
      )} */}
             <PostCard post={post as postType} />
-            <Comment />
-            <AddComment />
+            {posts
+              .find((i) => i._id === postid)
+              ?.comments.map((comment) => (
+                <Comment comment={comment} key={comment._id} />
+              ))}
+            <AddComment postId={post._id} />
+
             {post?.username === userData.user.username && (
               <div className="flex text-primaryDark dark:text-primary">
                 <FiEdit2 className=" text-xl hover:scale-110" />

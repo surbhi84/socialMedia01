@@ -131,7 +131,10 @@ export const editPostHandler = function (schema, request) {
         }
       );
     }
+
     const postId = request.params.postId;
+    // const content = request.requestBody.get("content");
+    // const img = request.requestBody.get("img");
     const { postData } = JSON.parse(request.requestBody);
     let post = schema.posts.findBy({ _id: postId }).attrs;
     if (post.username !== user.username) {

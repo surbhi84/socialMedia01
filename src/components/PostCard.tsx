@@ -24,14 +24,12 @@ export const PostCard = ({ post }: { post: postType }) => {
   const timeDifference = Number((today - postTime).toFixed());
 
   const addLikeHandler = async () => {
-    dispatch(addLike({ postId: post._id, like: 1, userId: userData.user._id }));
+    dispatch(addLike({ postId: post._id, userId: userData.user._id }));
     await likePost(post._id, userData.encodedToken);
   };
 
   const removeLikeHandler = async () => {
-    dispatch(
-      removeLike({ postId: post._id, like: 1, userId: userData.user._id })
-    );
+    dispatch(removeLike({ postId: post._id, userId: userData.user._id }));
     await dislikePost(post._id, userData.encodedToken);
   };
 

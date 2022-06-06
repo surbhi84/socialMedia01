@@ -7,6 +7,18 @@ import { formatDate } from "../utils/authUtils";
  * You can add default posts of your wish with different attributes
  * */
 
+export interface commentsType {
+  _id: string;
+  username: string;
+  text: string;
+  firstName: string;
+  lastName: string;
+  votes: {
+    upvotedBy: Array;
+    downvotedBy: Array;
+  };
+}
+
 export interface postType {
   _id: string;
   content: string;
@@ -17,17 +29,7 @@ export interface postType {
   lastName: string;
   createdAt: string;
   updatedAt: string;
-  comments: [
-    {
-      _id: string;
-      username: string;
-      text: string;
-      votes: {
-        upvotedBy: Array;
-        downvotedBy: Array;
-      };
-    }
-  ];
+  comments: [commentsType];
 }
 
 export const posts = [
@@ -49,7 +51,10 @@ export const posts = [
     comments: [
       {
         _id: "0122",
-        username: "shubhamsoni",
+        username: "patelAvi",
+        firstName: "Avinash",
+        lasstName: "Patel",
+
         text: "Interesting",
         votes: {
           upvotedBy: [],
@@ -58,7 +63,9 @@ export const posts = [
       },
       {
         _id: "0123",
-        username: "sohamshah",
+        username: "jgupta36",
+        firstName: "Jatin",
+        lasstName: "Gupta",
         text: "Wow!",
         votes: {
           upvotedBy: [],
@@ -84,7 +91,9 @@ export const posts = [
     comments: [
       {
         _id: "0125",
-        username: "shubhamsoni",
+        username: "coopershelly",
+        firstName: "Sheldon",
+        lastName: "Cooper",
         text: "Interesting",
         votes: {
           upvotedBy: [],
@@ -93,7 +102,9 @@ export const posts = [
       },
       {
         _id: "0126",
-        username: "sohamshah",
+        username: "sskukreti",
+        firstName: "Surbhi",
+        lastName: "Kukreti",
         text: "Wow!",
         votes: {
           upvotedBy: [],

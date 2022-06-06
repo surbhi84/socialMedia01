@@ -80,6 +80,39 @@ export const deletePost = (postId: string, encodedToken: string) => {
   });
 };
 
+// EDIT POST
+export const editPost = (
+  postId: string,
+  postContent: string,
+  img: FileList,
+  encodedToken: string
+) => {
+  return axios.post(
+    `/api/posts/edit/${postId}`,
+    { postData: { postContent, img: img[0] } },
+    {
+      headers: { authorization: encodedToken },
+    }
+  );
+};
+
+// ADD POST COMMENT
+
+export const addPostComment = (
+  postId: string,
+  comment: string,
+  encodedToken: string
+) => {
+  console.log(postId, comment, encodedToken);
+  return axios.post(
+    `/api/comments/add/${postId}`,
+    { commentData: { text: comment } },
+    {
+      headers: { authorization: encodedToken },
+    }
+  );
+};
+
 // GET BOOKMARK
 
 export const getBookmarks = (encodedToken: string) => {

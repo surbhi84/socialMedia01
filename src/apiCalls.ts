@@ -1,4 +1,5 @@
 import axios from "axios";
+import { postType } from "backend/db/posts";
 
 // LOGIN
 export const loginCall = (username: string, password: string) => {
@@ -83,17 +84,16 @@ export const deletePost = (postId: string, encodedToken: string) => {
 // EDIT POST
 export const editPost = (
   postId: string,
-  postContent: string,
-  img: FileList,
+  content: string,
+  img: FileList | string,
   encodedToken: string
 ) => {
-  return axios.post(
-    `/api/posts/edit/${postId}`,
-    { postData: { postContent, img: img[0] } },
-    {
-      headers: { authorization: encodedToken },
-    }
-  );
+  const formData = new FormData();
+  formData.set("content", content);
+  formData.set("img", typeof img === "string" ? img : img[0]);
+  return axios.post(`/api/posts/edit/${postId}`, formData, {
+    headers: { authorization: encodedToken },
+  });
 };
 
 // ADD POST COMMENT
@@ -103,7 +103,6 @@ export const addPostComment = (
   comment: string,
   encodedToken: string
 ) => {
-  console.log(postId, comment, encodedToken);
   return axios.post(
     `/api/comments/add/${postId}`,
     { commentData: { text: comment } },

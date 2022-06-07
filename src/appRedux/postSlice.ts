@@ -62,6 +62,7 @@ export const postSlice = createSlice({
         state.posts[postIndex].comments = action.payload.comment;
       }
     },
+
     addPost: (state, action: PayloadAction<postType>) => {
       state.posts = [...state.posts, action.payload];
     },

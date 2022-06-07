@@ -50,7 +50,6 @@ export const addPostCommentHandler = function (schema, request) {
     const { postId } = request.params;
     const { commentData } = JSON.parse(request.requestBody);
 
-    console.log(postId, commentData);
     const comment = {
       _id: uuid(),
       ...commentData,

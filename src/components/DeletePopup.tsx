@@ -1,21 +1,37 @@
 import { deletePost } from "apiCalls";
+import { setError } from "appRedux/miscSlice";
+import { setPosts } from "appRedux/postSlice";
+import { postType } from "backend/db/posts";
 import { useAppSelector } from "hooks";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export const DeletePopup = ({
   setShowDeletePopup,
-  postId,
+  post,
 }: {
   setShowDeletePopup: React.Dispatch<React.SetStateAction<boolean>>;
-  postId: string;
+  post: postType;
 }) => {
+  const postsData = useAppSelector((state) => state.posts.posts);
   const userData = useAppSelector((state) => state.userData);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // the below code makes use of optimistic approach
 
   const postDeleteHandler = async () => {
-    if (postId !== undefined) deletePost(postId, userData.encodedToken);
-    setShowDeletePopup(false);
-    navigate(-1);
+    try {
+      if (post._id !== undefined) {
+        dispatch(setPosts(postsData.filter((post) => post._id === post._id)));
+        setShowDeletePopup(false);
+        navigate(-1);
+        await deletePost(post._id, userData.encodedToken);
+      }
+    } catch (err) {
+      setError("Oops something went wrong couldn't delete post!");
+      dispatch(setPosts([...postsData, post]));
+    }
   };
 
   return (

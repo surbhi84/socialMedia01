@@ -46,7 +46,11 @@ export const PostCard = ({ post }: { post: postType }) => {
   return (
     <div className="flex flex-row gap-2 dark:bg-darkLight rounded-lg p-3 my-3 w-full">
       <img
-        src="/assets/bunny1.jpg"
+        src={
+          post.userAvatar !== "" || post.userAvatar !== undefined
+            ? post.userAvatar
+            : `/assets/bunny1.jpg`
+        }
         alt="avatar image"
         className=" w-12 h-12 rounded-full "
       />
@@ -72,9 +76,12 @@ export const PostCard = ({ post }: { post: postType }) => {
             onClick={() => navigate(`/post/${post._id}`)}
           >
             <p>{post.content}</p>
-
             {post.img !== undefined && (
-              <img src={post.img} alt="user post" className=" h-60 " />
+              <img
+                src={post.img}
+                alt="user post"
+                className="max-h-72 object-cover mr-1 "
+              />
             )}
           </div>
         </div>
@@ -93,11 +100,12 @@ export const PostCard = ({ post }: { post: postType }) => {
             )}
             <span className=" text-xl ">{post.likes.likeCount}</span>
           </span>
+
           <span className=" flex items-center gap-2 ">
             <BiCommentDetail className=" hover:scale-110 " />
-
             <span className=" text-xl ">{post.comments.length}</span>
           </span>
+
           {userData.user.bookmarks.some(
             (bookmark) => post._id === bookmark._id
           ) ? (

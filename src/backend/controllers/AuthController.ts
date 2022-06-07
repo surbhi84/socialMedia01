@@ -20,8 +20,8 @@ export const signupHandler = function (schema, request) {
   const { username, password, ...rest } = JSON.parse(request.requestBody);
   try {
     // check if username already exists
-    const user = schema.users.findBy({ username: username });
-    if (user) {
+    const oldUser = schema.users.findBy({ username: username });
+    if (oldUser) {
       return new Response(
         422,
         {},
@@ -42,12 +42,12 @@ export const signupHandler = function (schema, request) {
       following: [],
       bookmarks: [],
     };
-    const createdUser = schema.users.create(newUser);
+    const user = schema.users.create(newUser);
     const encodedToken = sign(
       { _id, username },
       process.env.REACT_APP_JWT_SECRET
     );
-    return new Response(201, {}, { createdUser, encodedToken });
+    return new Response(201, {}, { user, encodedToken });
   } catch (error) {
     return new Response(
       500,

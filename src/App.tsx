@@ -1,31 +1,34 @@
 import { useAppSelector } from "hooks";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setDarkTheme } from "appRedux/themeSlice";
-import { AppRoutes, Header } from "./components";
+import { AppRoutes, Header, Sidebar } from "./components";
 import { Link } from "react-router-dom";
-import { setToken, setUser } from "appRedux/userSlice";
+import { setToken, setUser, updateUserState } from "appRedux/userSlice";
 import { getUserFromToken } from "apiCalls";
 
 function App() {
   const darkTheme = useAppSelector((state) => state.theme);
+  const token = useAppSelector((state) => state.userData.encodedToken);
+  const [isInitialRender, setIsInitialRender] = useState(true);
+
   const dispatch = useDispatch();
 
   // For auto login
   useEffect(() => {
     (async () => {
       try {
-        const token = localStorage.getItem("token") ?? "";
-        if (token !== "") {
+        const token = localStorage.getItem("token");
+        if (token !== "" && token !== null && token !== undefined) {
           const user = await getUserFromToken(token).then(
             (res) => res.data.user
           );
-          dispatch(setToken(token));
-          console.log(user);
-          dispatch(setUser(user));
+          dispatch(updateUserState({ encodedToken: token, user }));
         }
       } catch (err) {
         console.error(err);
+      } finally {
+        setIsInitialRender(false);
       }
     })();
   }, []);
@@ -48,9 +51,15 @@ function App() {
 
   return (
     <div className={`App flex flex-col h-full w-full `}>
-      <Link to="/test">twopi</Link>
-      <Header />
-      <AppRoutes />
+      {isInitialRender ? (
+        <p>LOADING</p>
+      ) : (
+        <>
+          <Link to="/test">twopi</Link>
+          <Header />
+          <AppRoutes />
+        </>
+      )}
     </div>
   );
 }

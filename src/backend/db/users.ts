@@ -27,6 +27,10 @@ export const users = [
     firstName: "Surbhi",
     lastName: "Kukreti",
     username: "sskukreti",
+    userAvatar:
+      "https://cdn.pixabay.com/photo/2015/08/30/10/58/cat-914110_1280.jpg",
+    followers: ["reddyNavin", "sjtgshivam"],
+    following: ["jgupta36", "patelAvi"],
     email: "surbhikukreti@gmail.com",
     password: "collidingatoms",
     createdAt: formatDate(),
@@ -59,6 +63,8 @@ export const users = [
     firstName: "Avinash",
     lastName: "Patel",
     username: "patelAvi",
+    userAvatar:
+      "https://cdn.pixabay.com/photo/2012/04/16/12/08/boy-35706_1280.png",
     email: "avipatel@gmail.com",
     password: "neutrinos",
     createdAt: formatDate(),
@@ -69,6 +75,8 @@ export const users = [
     firstName: "Jatin",
     lastName: "Gupta",
     username: "jgupta36",
+    userAvatar:
+      "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
     email: "jatingupta@gmail.com",
     password: "darkMatter",
     createdAt: formatDate(),
@@ -79,6 +87,7 @@ export const users = [
     firstName: "Sheldon",
     lastName: "Cooper",
     username: "coopershelly",
+    userAvatar: "https://wallpaperaccess.com/full/1755074.jpg",
     email: "sheldoncoop@gmail.com",
     password: "quarks",
     createdAt: formatDate(),

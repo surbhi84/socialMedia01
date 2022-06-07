@@ -7,12 +7,13 @@ interface userType {
   email: string;
   firstName: string;
   followers: Array<any>;
-  following: Array<any>;
+  following: Array<string>;
   id: string;
   lastName: string;
   password: string;
   updatedAt: string;
   username: string;
+  userAvatar: string;
   _id: string;
 }
 
@@ -29,12 +30,13 @@ const initialState = {
     email: "",
     firstName: "",
     followers: [] as any[],
-    following: [] as any[],
+    following: [] as string[],
     id: "",
     lastName: "",
     password: "",
     updatedAt: "",
     username: "",
+    userAvatar: "",
     _id: "",
   },
 };
@@ -43,6 +45,8 @@ export const userSlice = createSlice({
   name: "userData",
   initialState,
   reducers: {
+    updateUserState: (state, action: PayloadAction<userObjectType>) =>
+      (state = action.payload),
     setUser: (state, action: PayloadAction<userType>) => {
       state.user = action.payload;
     },
@@ -62,6 +66,7 @@ export const userSlice = createSlice({
 });
 
 export const {
+  updateUserState,
   setUser,
   setToken,
   removeUser,

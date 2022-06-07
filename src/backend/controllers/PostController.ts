@@ -133,9 +133,11 @@ export const editPostHandler = function (schema, request) {
     }
 
     const postId = request.params.postId;
-    // const content = request.requestBody.get("content");
-    // const img = request.requestBody.get("img");
-    const { postData } = JSON.parse(request.requestBody);
+    const content = request.requestBody.get("content");
+    const img = request.requestBody.get("img");
+
+    console.log(content, typeof img, img);
+
     let post = schema.posts.findBy({ _id: postId }).attrs;
     if (post.username !== user.username) {
       return new Response(
@@ -146,7 +148,17 @@ export const editPostHandler = function (schema, request) {
         }
       );
     }
-    post = { ...post, ...postData };
+
+    post = {
+      ...post,
+      content,
+      img:
+        typeof img !== "string"
+          ? window.URL.createObjectURL(img)
+          : img !== "undefined"
+          ? img
+          : undefined,
+    };
     this.db.posts.update({ _id: postId }, post);
     return new Response(201, {}, { posts: this.db.posts });
   } catch (error) {

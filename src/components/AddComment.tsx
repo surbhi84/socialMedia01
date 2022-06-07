@@ -2,23 +2,23 @@ import { addPostComment } from "apiCalls";
 import { addComment } from "appRedux/postSlice";
 import { useAppSelector } from "hooks";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 export const AddComment = ({ postId }: { postId: string }) => {
   const [comment, setComment] = useState("");
   const token = useAppSelector((state) => state.userData.encodedToken);
+  const dispatch = useDispatch();
 
   const addCommentHandler = async () => {
-    console.log(postId, comment, token);
     const response = await addPostComment(postId, comment, token).then(
       (res) => res.data.comments
     );
-    console.log(response);
-    addComment({ postId, comment: response });
+    dispatch(addComment({ postId, comment: response }));
     setComment("");
   };
 
   return (
-    <div className="flex flex-col gap-2 mx-3">
+    <div className="flex flex-col gap-2 m-3 mx-2">
       <textarea
         onChange={(e) => {
           setComment(e.target.value);

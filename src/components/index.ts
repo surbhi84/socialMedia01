@@ -14,4 +14,4 @@ export { Comment } from "./Comment";
 export { AddComment } from "./AddComment";
 export { LogoutBtn } from "./LogoutBtn";
 export { PrivateRoutes } from "./PrivateRoutes";
-export { PostPage } from "./PostPage";
+export { DeletePopup } from "./DeletePopup";

@@ -23,6 +23,7 @@ function App() {
           const user = await getUserFromToken(token).then(
             (res) => res.data.user
           );
+          console.log(token);
           dispatch(updateUserState({ encodedToken: token, user }));
         }
       } catch (err) {

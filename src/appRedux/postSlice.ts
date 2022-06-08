@@ -1,5 +1,30 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { commentsType, postType } from "backend/db/posts";
+
+export interface commentsType {
+  _id: string;
+  username: string;
+  text: string;
+  firstName: string;
+  lastName: string;
+  votes: {
+    upvotedBy: Array<any>;
+    downvotedBy: Array<any>;
+  };
+}
+
+export interface postType {
+  _id: string;
+  content: string;
+  likes: { likeCount: number; likedBy: Array<string>; dislikedBy: Array<any> };
+  img?: string;
+  username: string;
+  userAvatar: string;
+  firstName: string;
+  lastName: string;
+  createdAt: string;
+  updatedAt: string;
+  comments: [commentsType];
+}
 
 interface postSliceTypes {
   posts: Array<postType>;

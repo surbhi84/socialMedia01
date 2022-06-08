@@ -1,7 +1,7 @@
 import { deletePost } from "apiCalls";
 import { setError } from "appRedux/miscSlice";
-import { setPosts } from "appRedux/postSlice";
-import { postType } from "backend/db/posts";
+import { postType, setPosts } from "appRedux/postSlice";
+
 import { useAppSelector } from "hooks";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";

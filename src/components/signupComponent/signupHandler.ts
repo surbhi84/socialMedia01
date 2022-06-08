@@ -29,7 +29,6 @@ export async function signupHandler(
       signupInputs.pwd,
       signupInputs.email
     ).then((res) => res.data);
-    console.log(response);
     if (
       response.encodedtoken !== "" &&
       response.encodedtoken !== null &&

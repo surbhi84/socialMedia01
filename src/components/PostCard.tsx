@@ -1,6 +1,3 @@
-import { useEffect, useState } from "react";
-import { postType } from "backend/db/posts";
-
 import { RiHeart2Line, RiHeart2Fill } from "react-icons/ri";
 import { BiCommentDetail } from "react-icons/bi";
 import { MdBookmarkBorder, MdBookmark } from "react-icons/md";
@@ -8,7 +5,7 @@ import { MdBookmarkBorder, MdBookmark } from "react-icons/md";
 import { addBookmark, dislikePost, likePost, removeBookmark } from "apiCalls";
 import { useAppSelector } from "hooks";
 import { useDispatch } from "react-redux";
-import { addLike, removeLike } from "appRedux/postSlice";
+import { addLike, postType, removeLike } from "appRedux/postSlice";
 import { removeAsBookmark, setAsBookmark } from "appRedux/userSlice";
 import { useNavigate } from "react-router-dom";
 
@@ -44,7 +41,7 @@ export const PostCard = ({ post }: { post: postType }) => {
   };
 
   return (
-    <div className="flex flex-row gap-2 dark:bg-darkLight rounded-lg p-3 my-3 w-full">
+    <div className="flex flex-row gap-2 dark:bg-darkLight rounded-lg p-3 my-3 w-full shadow-sm shadow-slate-400 dark:shadow-none">
       <img
         src={
           post.userAvatar !== "" || post.userAvatar !== undefined
@@ -101,7 +98,10 @@ export const PostCard = ({ post }: { post: postType }) => {
             <span className=" text-xl ">{post.likes.likeCount}</span>
           </span>
 
-          <span className=" flex items-center gap-2 ">
+          <span
+            className=" flex items-center gap-2 "
+            onClick={() => navigate(`/post`)}
+          >
             <BiCommentDetail className=" hover:scale-110 " />
             <span className=" text-xl ">{post.comments.length}</span>
           </span>

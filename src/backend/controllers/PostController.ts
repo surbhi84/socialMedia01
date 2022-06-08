@@ -88,6 +88,7 @@ export const createPostHandler = function (schema, request) {
       img: img !== null ? window.URL.createObjectURL(img) : undefined,
       firstName: user.firstName,
       lastName: user.lastName,
+      userAvatar: user.userAvatar,
       comments: [],
       likes: {
         likeCount: 0,
@@ -135,8 +136,6 @@ export const editPostHandler = function (schema, request) {
     const postId = request.params.postId;
     const content = request.requestBody.get("content");
     const img = request.requestBody.get("img");
-
-    console.log(content, typeof img, img);
 
     let post = schema.posts.findBy({ _id: postId }).attrs;
     if (post.username !== user.username) {

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { postType } from "backend/db/posts";
 
 // LOGIN
 export const loginCall = (username: string, password: string) => {

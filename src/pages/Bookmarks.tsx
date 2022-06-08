@@ -1,5 +1,6 @@
 import { getBookmarks } from "apiCalls";
-import { postType } from "backend/db/posts";
+import { postType } from "appRedux/postSlice";
+
 import { PostCard, Sidebar } from "components";
 import { useAppSelector } from "hooks";
 import { useEffect, useState } from "react";

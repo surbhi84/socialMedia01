@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { postType } from "backend/db/posts";
+import { postType } from "./postSlice";
 
-interface userType {
+export interface userType {
   bookmarks: Array<any>;
   createdAt: string;
   email: string;

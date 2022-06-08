@@ -1,6 +1,7 @@
-import { commentsType } from "backend/db/posts";
+import { commentsType } from "appRedux/postSlice";
 
 export const Comment = ({ comment }: { comment: commentsType }) => {
+  console.log(comment);
   return (
     <div className="flex flex-col gap-1 rounded-lg p-3 my-3 dark:bg-darkLight ">
       <span className="flex gap-1 flex-wrap text-primaryDark dark:text-primary">

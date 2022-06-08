@@ -7,7 +7,7 @@ import {
   LandingPage,
   Login,
   Notifications,
-  Profile,
+  ProfilePage,
 } from "pages";
 import { SignupComponent } from "./signupComponent/SignupComponent";
 import { LoginComponent } from "./LoginComponent";
@@ -52,7 +52,7 @@ export const AppRoutes = () => {
             path="/profile"
             element={
               <Layout>
-                <Profile />
+                <ProfilePage />
               </Layout>
             }
           />

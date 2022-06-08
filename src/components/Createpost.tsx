@@ -1,7 +1,6 @@
 import { editPost, postPost } from "apiCalls";
 import { setError } from "appRedux/miscSlice";
-import { setPosts } from "appRedux/postSlice";
-import { postType } from "backend/db/posts";
+import { postType, setPosts } from "appRedux/postSlice";
 import { useAppSelector } from "hooks";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -85,6 +84,8 @@ export const Createpost = ({
       console.error(err);
     }
   }
+
+  // The below useEffect releases the created url for the image that is shown inside the createpost component, as it is no longer needed it doesn't serve any purpose to have it in the memory.
 
   useEffect(() => {
     return () => {

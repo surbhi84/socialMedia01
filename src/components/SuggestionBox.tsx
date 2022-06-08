@@ -36,7 +36,7 @@ export const SuggestionBox = () => {
                 <div className=" flex flex-col ">
                   {user.firstName + " " + user.lastName}
                   <div className=" text-darkCol dark:text-slate-200 ">
-                    {user.username}
+                    @{user.username}
                   </div>
                 </div>
               </Link>

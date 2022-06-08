@@ -5,8 +5,6 @@ import { isDarkTheme } from "appRedux";
 import { useAppSelector } from "hooks";
 import { Link, useLocation } from "react-router-dom";
 import { LogoutBtn } from "./LogoutBtn";
-import { setDarkTheme } from "appRedux/themeSlice";
-import { userInfo } from "os";
 
 export const Header = () => {
   const dispatch = useDispatch();
@@ -24,7 +22,7 @@ export const Header = () => {
       window.document.documentElement.classList.remove("dark");
     }
   };
-  console.log(token);
+
   return (
     <header className=" flex flex-row p-2 pb-2 gap-1 dark:bg-darkCol ">
       <img src="/assets/pin.svg" alt="logo image" className=" h-8 " />

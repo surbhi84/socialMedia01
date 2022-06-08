@@ -16,7 +16,6 @@ export const LoginComponent = () => {
     try {
       const response = await loginCall(username, pwd).then((res) => res.data);
       localStorage.setItem("token", response.encodedToken);
-      console.log(response, "response");
       dispatch(updateUserState(response));
       navigate("/home");
     } catch (err) {

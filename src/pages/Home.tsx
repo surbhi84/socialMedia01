@@ -1,4 +1,4 @@
-import { posts, postType } from "backend/db/posts";
+import { postType } from "appRedux/postSlice";
 import { Createpost, DisplayPosts, Searchbar, SuggestionBox } from "components";
 import { useAppSelector } from "hooks";
 
@@ -6,11 +6,10 @@ export const Home = () => {
   const postsData = useAppSelector((state) => state.posts.posts);
   const user = useAppSelector((state) => state.userData.user);
 
-  const posts = postsData.filter((post) =>
-    user.following.includes(post.username)
+  const posts = postsData.filter(
+    (post) =>
+      user.following.includes(post.username) || user.username === post.username
   );
-
-  // console.log(postsData, user, posts);
 
   return (
     <>

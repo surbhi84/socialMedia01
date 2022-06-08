@@ -14,6 +14,7 @@ import { LoginComponent } from "./LoginComponent";
 import { PrivateRoutes } from "./PrivateRoutes";
 import { PostPage } from "pages";
 import { Layout } from "./Layout";
+import { userInfo } from "os";
 
 export const AppRoutes = () => {
   return (
@@ -49,7 +50,7 @@ export const AppRoutes = () => {
             }
           />
           <Route
-            path="/profile"
+            path="/profile/:username"
             element={
               <Layout>
                 <ProfilePage />

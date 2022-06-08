@@ -6,6 +6,7 @@ export interface commentsType {
   text: string;
   firstName: string;
   lastName: string;
+  userAvatar: string;
   votes: {
     upvotedBy: Array<any>;
     downvotedBy: Array<any>;

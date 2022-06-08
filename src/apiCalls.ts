@@ -22,6 +22,11 @@ export const getUserFromToken = (encodedToken: string) =>
     headers: { authorization: encodedToken },
   });
 
+// GET USER VIA USER ID
+
+export const getUserFromId = (username: string) =>
+  axios.get(`/api/users/${username}`);
+
 // GET USERS
 
 export const getUsers = () => {

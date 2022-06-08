@@ -629,14 +629,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 3rem;
 }
 
+.h-8 {
+  height: 2rem;
+}
+
 .h-fit {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
-}
-
-.h-8 {
-  height: 2rem;
 }
 
 .h-20 {
@@ -693,6 +693,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .w-full {
   width: 100%;
+}
+
+.w-8 {
+  width: 2rem;
 }
 
 .w-12 {
@@ -806,6 +810,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .gap-2 {
   gap: 0.5rem;
+}
+
+.gap-3 {
+  gap: 0.75rem;
 }
 
 .gap-1 {
@@ -929,11 +937,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-darkCol {
   --tw-bg-opacity: 1;
   background-color: rgb(55 52 62 / var(--tw-bg-opacity));
-}
-
-.bg-darker {
-  --tw-bg-opacity: 1;
-  background-color: rgb(43 42 51 / var(--tw-bg-opacity));
 }
 
 .stroke-primaryDark {
@@ -1084,6 +1087,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   transition-duration: 75ms;
 }
 
+.ease-out {
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -1210,8 +1217,16 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 
 @media (min-width: 640px) {
+  .sm\:mr-10 {
+    margin-right: 2.5rem;
+  }
+
   .sm\:inline {
     display: inline;
+  }
+
+  .sm\:h-10 {
+    height: 2.5rem;
   }
 
   .sm\:h-80 {
@@ -1228,6 +1243,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
   .sm\:min-h-full {
     min-height: 100%;
+  }
+
+  .sm\:w-10 {
+    width: 2.5rem;
   }
 
   .sm\:w-96 {

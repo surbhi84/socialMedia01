@@ -55,6 +55,7 @@ export const users = [
     firstName: "Navin",
     lastName: "Reddy",
     username: "reddyNavin",
+    bookmarks: [],
     followers: [],
     following: ["sskukreti"],
     email: "navin90@gmail.com",
@@ -67,6 +68,7 @@ export const users = [
     firstName: "Avinash",
     lastName: "Patel",
     username: "patelAvi",
+    bookmarks: [],
     followers: ["sskukreti"],
     following: [],
     userAvatar:
@@ -81,6 +83,7 @@ export const users = [
     firstName: "Jatin",
     lastName: "Gupta",
     username: "jgupta36",
+    bookmarks: [],
     followers: [],
     following: [],
     userAvatar:
@@ -95,6 +98,7 @@ export const users = [
     firstName: "Sheldon",
     lastName: "Cooper",
     username: "coopershelly",
+    bookmarks: [],
     followers: [],
     following: [],
     userAvatar: "https://wallpaperaccess.com/full/1755074.jpg",

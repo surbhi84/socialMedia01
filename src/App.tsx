@@ -5,7 +5,8 @@ import { setDarkTheme } from "appRedux/themeSlice";
 import { AppRoutes, Header, Sidebar } from "./components";
 import { Link } from "react-router-dom";
 import { setToken, setUser, updateUserState } from "appRedux/userSlice";
-import { getUserFromToken } from "apiCalls";
+import { getPosts, getUserFromToken } from "apiCalls";
+import { setPosts } from "appRedux/postSlice";
 
 function App() {
   const darkTheme = useAppSelector((state) => state.theme);
@@ -23,8 +24,10 @@ function App() {
           const user = await getUserFromToken(token).then(
             (res) => res.data.user
           );
-          console.log(token);
+
           dispatch(updateUserState({ encodedToken: token, user }));
+          const posts = await getPosts().then((res) => res.data.posts);
+          dispatch(setPosts(posts));
         }
       } catch (err) {
         console.error(err);

@@ -1,7 +1,7 @@
 //@ts-nocheck
 import { v4 as uuid } from "uuid";
 import { Response } from "miragejs";
-import { formatDate, requiresAuth } from "../utils/authUtils";
+import { formatDate, requiresAuth, serializeUser } from "../utils/authUtils";
 
 const sign = require("jwt-encode");
 
@@ -68,7 +68,7 @@ export const signupHandler = function (schema, request) {
 export const loginHandler = function (schema, request) {
   const { username, password } = JSON.parse(request.requestBody);
   try {
-    const user = schema.users.findBy({ username: username });
+    const user = schema.users.findBy({ username: username }).attrs;
 
     if (!user) {
       return new Response(
@@ -87,7 +87,11 @@ export const loginHandler = function (schema, request) {
         process.env.REACT_APP_JWT_SECRET
       );
 
-      return new Response(200, {}, { user, encodedToken });
+      return new Response(
+        200,
+        {},
+        { user: serializeUser(this, user), encodedToken }
+      );
     }
     return new Response(
       401,
@@ -111,5 +115,5 @@ export const loginHandler = function (schema, request) {
 
 export const tokenLoginHandler = function (schema, request) {
   const user = requiresAuth.call(this, request);
-  return new Response(200, {}, { user });
+  return new Response(200, {}, { user: serializeUser(this, user) });
 };

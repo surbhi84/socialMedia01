@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { postType } from "./postSlice";
 
-export interface userType {
+export interface userTypeRaw {
   bookmarks: Array<any>;
   createdAt: string;
   email: string;
   firstName: string;
-  followers: Array<any>;
+  followers: Array<string>;
   following: Array<string>;
   id: string;
   lastName: string;
@@ -17,7 +17,23 @@ export interface userType {
   _id: string;
 }
 
-interface userObjectType {
+export interface userType {
+  bookmarks: Array<any>;
+  createdAt: string;
+  email: string;
+  firstName: string;
+  followers: Array<userTypeRaw>;
+  following: Array<userTypeRaw>;
+  id: string;
+  lastName: string;
+  password: string;
+  updatedAt: string;
+  username: string;
+  userAvatar: string;
+  _id: string;
+}
+
+export interface userObjectType {
   encodedToken: string;
   user: userType;
 }
@@ -29,8 +45,8 @@ const initialState = {
     createdAt: "",
     email: "",
     firstName: "",
-    followers: [] as any[],
-    following: [] as string[],
+    followers: [] as userTypeRaw[],
+    following: [] as userTypeRaw[],
     id: "",
     lastName: "",
     password: "",

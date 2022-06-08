@@ -31,7 +31,8 @@ export const posts = [
         username: "patelAvi",
         firstName: "Avinash",
         lastName: "Patel",
-
+        userAvatar:
+          "https://cdn.pixabay.com/photo/2012/04/16/12/08/boy-35706_1280.png",
         text: "Interesting",
         votes: {
           upvotedBy: [],
@@ -43,6 +44,8 @@ export const posts = [
         username: "jgupta36",
         firstName: "Jatin",
         lastName: "Gupta",
+        userAvatar:
+          "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
         text: "Wow!",
         votes: {
           upvotedBy: [],
@@ -85,6 +88,8 @@ export const posts = [
         username: "sskukreti",
         firstName: "Surbhi",
         lastName: "Kukreti",
+        userAvatar:
+          "https://cdn.pixabay.com/photo/2015/08/30/10/58/cat-914110_1280.jpg",
         text: "Loved it!",
         votes: {
           upvotedBy: [],
@@ -118,7 +123,8 @@ export const posts = [
         username: "patelAvi",
         firstName: "Avinash",
         lastName: "Patel",
-
+        userAvatar:
+          "https://cdn.pixabay.com/photo/2012/04/16/12/08/boy-35706_1280.png",
         text: "Indeed they do",
         votes: {
           upvotedBy: [],
@@ -130,6 +136,8 @@ export const posts = [
         username: "jgupta36",
         firstName: "Jatin",
         lastName: "Gupta",
+        userAvatar:
+          "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
         text: "Wow!",
         votes: {
           upvotedBy: [],

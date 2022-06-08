@@ -1,6 +1,7 @@
 //@ts-nocheck
 import { Response } from "miragejs";
 import { formatDate, requiresAuth } from "../utils/authUtils";
+import { serializeUser } from "../utils/authUtils";
 
 /**
  * All the routes related to user are present here.
@@ -12,7 +13,15 @@ import { formatDate, requiresAuth } from "../utils/authUtils";
  * */
 
 export const getAllUsersHandler = function () {
-  return new Response(200, {}, { users: this.db.users });
+  return new Response(
+    200,
+    {},
+    {
+      users: this.db.users.map(function (i) {
+        return serializeUser(this, i);
+      }, this),
+    }
+  );
 };
 
 /**
@@ -24,7 +33,7 @@ export const getUserHandler = function (schema, request) {
   const username = request.params.username;
   try {
     let user = schema.users.findBy({ username: username }).attrs;
-    return new Response(200, {}, { user });
+    return new Response(200, {}, { user: serializeUser(this, user) });
   } catch (error) {
     return new Response(
       500,
@@ -59,7 +68,7 @@ export const editUserHandler = function (schema, request) {
     const { userData } = JSON.parse(request.requestBody);
     user = { ...user, ...userData, updatedAt: formatDate() };
     this.db.users.update({ _id: user._id }, user);
-    return new Response(201, {}, { user });
+    return new Response(201, {}, { user: serializeUser(this, user) });
   } catch (error) {
     return new Response(
       500,
@@ -331,7 +340,7 @@ export const followUserHandler = function (schema, request) {
   const user = requiresAuth.call(this, request);
   const { username: followUsername } = request.params;
   const followUser = schema.users.findBy({ username: followUsername }).attrs;
-  console.log(user, followUsername, followUser);
+
   try {
     if (!user) {
       return new Response(
@@ -347,31 +356,27 @@ export const followUserHandler = function (schema, request) {
     const isFollowing = user.following.some(
       (currUser) => currUser === followUsername
     );
-    console.log(isFollowing, "isFollowing");
 
     if (isFollowing) {
-      return new Response(200, {}, { user, followUser: followUser });
+      return new Response(
+        200,
+        {},
+        {
+          user: serializeUser(this, user),
+          followUser: serializeUser(this, followUser),
+        }
+      );
     }
-    console.log("crossed is FOllwing");
+
     const updatedUser = {
       ...user,
       following: [...user.following, followUsername],
     };
 
-    console.log("crossed updatedUser");
-
     const updatedFollowUser = {
       ...followUser,
       followers: [...followUser.followers, user.username],
     };
-    console.log("djfkjds");
-
-    console.log(
-      "updatedUser",
-      updatedUser,
-      "updatedFollowUser",
-      updatedFollowUser
-    );
 
     this.db.users.update(
       { username: user.username },
@@ -384,7 +389,10 @@ export const followUserHandler = function (schema, request) {
     return new Response(
       200,
       {},
-      { user: updatedUser, followUser: updatedFollowUser }
+      {
+        user: serializeUser(this, updatedUser),
+        followUser: serializeUser(this, updatedFollowUser),
+      }
     );
   } catch (error) {
     return new Response(
@@ -423,7 +431,14 @@ export const unfollowUserHandler = function (schema, request) {
     );
 
     if (!isFollowing) {
-      return new Response(200, {}, { user, followUser: followUser });
+      return new Response(
+        200,
+        {},
+        {
+          user: serializeUser(this, user),
+          followUser: serializeUser(this, followUser),
+        }
+      );
     }
 
     const updatedUser = {
@@ -449,7 +464,10 @@ export const unfollowUserHandler = function (schema, request) {
     return new Response(
       200,
       {},
-      { user: updatedUser, followUser: updatedFollowUser }
+      {
+        user: serializeUser(this, updatedUser),
+        followUser: serializeUser(this, updatedFollowUser),
+      }
     );
   } catch (error) {
     return new Response(

@@ -23,3 +23,18 @@ export const requiresAuth = function (request) {
 };
 
 export const formatDate = () => dayjs().format("YYYY-MM-DDTHH:mm:ssZ");
+
+export const serializeUser = (server, user) => {
+  const serializedFollowers = user.followers.map((username) => {
+    return server.db.users.findBy({ username });
+  });
+  const serializedFollowing = user.following.map((username) => {
+    return server.db.users.findBy({ username });
+  });
+
+  return {
+    ...user,
+    followers: serializedFollowers,
+    following: serializedFollowing,
+  };
+};

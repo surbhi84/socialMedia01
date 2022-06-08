@@ -7,7 +7,6 @@ import { FiEdit2 } from "react-icons/fi";
 import { useParams } from "react-router-dom";
 import {
   AddComment,
-  Sidebar,
   PostCard,
   Comment,
   DeletePopup,
@@ -34,14 +33,12 @@ export const PostPage = () => {
     setShowOptions(false);
   };
 
-  useEffect(() => {
-    (async function () {
-      const response = await getPosts().then((res) => res.data.posts);
-      dispatch(setPosts(response));
-    })();
-  }, []);
-
-  console.log(posts, postid, "user from postpage redux");
+  // useEffect(() => {
+  //   (async function () {
+  //     const response = await getPosts().then((res) => res.data.posts);
+  //     dispatch(setPosts(response));
+  //   })();
+  // }, []);
 
   return (
     <>

@@ -8,7 +8,8 @@ export const Home = () => {
 
   const posts = postsData.filter(
     (post) =>
-      user.following.includes(post.username) || user.username === post.username
+      user.following.some(({ username }) => username === post.username) ||
+      user.username === post.username
   );
 
   return (

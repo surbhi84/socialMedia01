@@ -8,8 +8,6 @@ import { updateUserState } from "appRedux/userSlice";
 import { getPosts, getUserFromToken } from "apiCalls";
 
 function App() {
-  const darkTheme = useAppSelector((state) => state.theme);
-  const token = useAppSelector((state) => state.userData.encodedToken);
   const [isInitialRender, setIsInitialRender] = useState(true);
 
   const dispatch = useDispatch();
@@ -36,7 +34,7 @@ function App() {
   // For Theme
   useEffect(() => {
     let theme = localStorage.getItem("darkTheme");
-    if (theme !== undefined) {
+    if (theme !== undefined && theme !== null) {
       if (theme === "true") {
         window.document.documentElement.classList.add("dark");
         localStorage.setItem("darkTheme", "true");
@@ -46,6 +44,10 @@ function App() {
         localStorage.setItem("darkTheme", "false");
         dispatch(setDarkTheme(false));
       }
+    } else {
+      window.document.documentElement.classList.add("dark");
+      localStorage.setItem("darkTheme", "true");
+      dispatch(setDarkTheme(true));
     }
   }, []);
 
@@ -56,8 +58,6 @@ function App() {
       ) : (
         <>
           <Link to="/test">twopi</Link>
-          <Link to="/load">loader</Link>
-
           <Header />
           <AppRoutes />
         </>

@@ -1294,12 +1294,12 @@ Ensure the default browser behavior of the `hidden` attribute.
     width: 2.5rem;
   }
 
-  .sm\:w-96 {
-    width: 24rem;
-  }
-
   .sm\:w-2\/4 {
     width: 50%;
+  }
+
+  .sm\:w-96 {
+    width: 24rem;
   }
 
   .sm\:w-44 {
@@ -1392,5 +1392,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 @media (min-width: 1024px) {
   .lg\:w-2\/4 {
     width: 50%;
+  }
+}
+
+@media (min-width: 340px) {
+  .xs\:text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
   }
 }

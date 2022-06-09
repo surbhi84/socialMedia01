@@ -1,8 +1,20 @@
+import { getPosts } from "apiCalls";
+import { setPosts } from "appRedux/postSlice";
 import { PostCard, Searchbar, SuggestionBox } from "components";
 import { useAppSelector } from "hooks";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 export const Explore = () => {
   const postsData = useAppSelector((state) => state.posts.posts);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    (async () => {
+      const posts = await getPosts().then((res) => res.data.posts);
+      dispatch(setPosts(posts));
+    })();
+  }, []);
 
   return (
     <>

@@ -7,13 +7,13 @@ import { NavLink } from "react-router-dom";
 
 export const Sidebar = () => {
   return (
-    <div className=" flex flex-col w-56">
+    <div className=" flex flex-row justify-center md:justify-start md:flex-col shrink-0 sm:shrink md:w-52 sm:min-h-full md:gap-2 rounded-md sticky z-10 top-0 overflow-x-scroll sm:overflow-hidden scrollbar-hide bg-white dark:text-primary dark:bg-darker">
       <NavLink
         to="/home"
         className={({ isActive }) =>
           isActive
-            ? "flex flex-row items-center gap-3 text-xl p-4 bg-primary"
-            : "flex flex-row items-center gap-3 text-xl p-4 "
+            ? " flex flex-row items-center md:gap-3 gap-1 text-xl px-3 py-2 bg-primaryLight rounded-md dark:bg-darkLight "
+            : " flex flex-row items-center md:gap-3 gap-1 text-xl px-3 py-2  "
         }
       >
         <AiOutlineHome />
@@ -21,25 +21,41 @@ export const Sidebar = () => {
       </NavLink>
       <NavLink
         to="/explore"
-        className=" flex flex-row items-center gap-3 text-xl p-4   "
+        className={({ isActive }) =>
+          isActive
+            ? " flex flex-row items-center  md:gap-3 gap-1 text-xl px-3 py-2 bg-primaryLight rounded-md dark:bg-darkLight "
+            : " flex flex-row items-center  md:gap-3 gap-1 text-xl px-3 py-2 "
+        }
       >
         <MdOutlineScreenSearchDesktop /> Explore
       </NavLink>
       <NavLink
         to="/profile"
-        className=" flex flex-row items-center gap-3 text-xl p-4   "
+        className={({ isActive }) =>
+          isActive
+            ? " flex flex-row items-center md:gap-3 gap-1 text-xl px-3 py-2 bg-primaryLight rounded-md dark:bg-darkLight "
+            : " flex flex-row items-center md:gap-3 gap-1 text-xl px-3 py-2  "
+        }
       >
         <AiOutlineUser /> Profile
       </NavLink>
       <NavLink
-        to="/notification"
-        className=" flex flex-row items-center gap-3 text-xl p-4   "
+        to="/notifications"
+        className={({ isActive }) =>
+          isActive
+            ? " flex flex-row items-center md:gap-3 gap-1 text-xl px-3 py-2 bg-primaryLight rounded-md dark:bg-darkLight "
+            : " flex flex-row items-center md:gap-3 gap-1 text-xl px-3 py-2   "
+        }
       >
         <IoNotificationsOutline /> Notifications
       </NavLink>
       <NavLink
         to="/bookmarks"
-        className=" flex flex-row items-center gap-3 text-xl p-4   "
+        className={({ isActive }) =>
+          isActive
+            ? " flex flex-row items-center md:gap-3 gap-1 text-xl px-3 py-2 bg-primaryLight rounded-md dark:bg-darkLight "
+            : " flex flex-row items-center md:gap-3 gap-1 text-xl  px-3 py-2  "
+        }
       >
         <HiOutlineBookmark /> Bookmarks
       </NavLink>

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export const LandingPage = () => {
   return (
-    <div className=" flex flex-col gap-10 h-full dark:bg-darkCol ">
+    <div className=" flex flex-col gap-10 h-screen dark:bg-darkCol ">
       <main className=" flex flex-col sm:flex-row sm:justify-center justify-items-center m-6 gap-10 md:gap-28 items-center ">
         <div className="flex flex-col">
           {/* main image */}

@@ -2,25 +2,29 @@ import { HiEye, HiEyeOff } from "react-icons/hi";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginCall } from "apiCalls";
+import { useDispatch } from "react-redux";
+import { setUser } from "appRedux/userSlice";
 
 export const LoginComponent = () => {
   const [show, setShow] = useState(false);
-  const [username, setUsername] = useState("KukretiSurbhi99");
+  const [username, setUsername] = useState("sskukreti");
   const [pwd, setPwd] = useState("collidingatoms");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   async function loginHandler(username: string, pwd: string) {
     try {
       const response = await loginCall(username, pwd).then((res) => res.data);
+      localStorage.setItem("token", response.encodedToken);
+      dispatch(setUser(response));
       navigate("/home");
-      localStorage.setItem("token", response.encodedtoken);
     } catch (err) {
       console.error(err);
     }
   }
 
   return (
-    <div className=" flex flex-col items-center justify-center h-full gap-8 dark:text-primary dark:bg-darkCol ">
+    <div className=" flex flex-col items-center justify-center h-screen gap-8 dark:text-primary dark:bg-darkCol ">
       {/* USERNAME */}
       <input
         type="text"
@@ -49,11 +53,12 @@ export const LoginComponent = () => {
       </div>
 
       <button
-        className=" border border-primaryDark w-60 h-8 rounded-full hover:scale-105 "
+        className=" border border-primaryDark dark:border-primary w-60 h-8 rounded-full hover:scale-105 "
         onClick={() => loginHandler(username, pwd)}
       >
         Login
       </button>
+
       <div className="flex flex-col items-center">
         or
         <Link
@@ -61,11 +66,12 @@ export const LoginComponent = () => {
           className="relative group overflow-hidden px-6 h-12 rounded-full flex space-x-2 items-center "
         >
           <span className="relative text-sm">Create new Account</span>
+
           <div className="flex items-center -space-x-3 translate-x-3">
-            <div className="w-2.5 h-[1.6px] rounded bg-primary origin-left scale-x-0 transition duration-300 group-hover:scale-x-100"></div>
+            <div className="w-2.5 h-[1.6px] rounded bg-primaryDark dark:bg-primary origin-left scale-x-0 transition duration-300 group-hover:scale-x-100"></div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 stroke-primary -translate-x-2 transition duration-300 group-hover:translate-x-0"
+              className="h-5 w-5 stroke-primaryDark dark:stroke-primary -translate-x-2 transition duration-300 group-hover:translate-x-0"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"

@@ -20,7 +20,7 @@ export const SignupComponent = () => {
 
   return (
     <>
-      <div className=" flex flex-col items-center justify-center h-full gap-8 dark:text-primary dark:bg-darkCol ">
+      <div className=" flex flex-col items-center justify-center h-screen gap-8 dark:text-primary dark:bg-darkCol ">
         {/* EMAIL */}
         <input
           type="text"
@@ -90,7 +90,7 @@ export const SignupComponent = () => {
         </div>
 
         <button
-          className=" border border-primaryDark w-60 h-8 rounded-full hover:scale-105 "
+          className=" border border-primaryDark dark:border-primary w-60 h-8 rounded-full hover:scale-105 "
           onClick={() => signupHandler(signupInputs, dispatch, navigate)}
         >
           Signup
@@ -103,10 +103,10 @@ export const SignupComponent = () => {
           >
             <span className="relative text-sm">already have an account</span>
             <div className="flex items-center -space-x-3 translate-x-3">
-              <div className="w-2.5 h-[1.6px] rounded bg-primary origin-left scale-x-0 transition duration-300 group-hover:scale-x-100"></div>
+              <div className="w-2.5 h-[1.6px] rounded bg-primaryDark dark:bg-primary origin-left scale-x-0 transition duration-300 group-hover:scale-x-100"></div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 stroke-primary -translate-x-2 transition duration-300 group-hover:translate-x-0"
+                className="h-5 w-5 stroke-primaryDark dark:stroke-primary -translate-x-2 transition duration-300 group-hover:translate-x-0"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

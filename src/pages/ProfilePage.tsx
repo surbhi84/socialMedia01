@@ -1,7 +1,7 @@
 import { followUser, getPosts, getUserFromId, unfollowUser } from "apiCalls";
 import { setPosts } from "appRedux/postSlice";
 import { setUser, userType } from "appRedux/userSlice";
-import { PostCard } from "components";
+import { Loader, PostCard } from "components";
 import { useAppSelector } from "hooks";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -30,16 +30,6 @@ export const ProfilePage = () => {
   const userPost = posts.filter((post) => {
     return post.username === userProfile?.username;
   });
-
-  // async function followHandler(username: string, token: string) {
-  //   const response = await followUser(username, token);
-  //   dispatch(setUser(response.data.user));
-  // }
-
-  // async function unFollowHandler(username: string, token: string) {
-  //   const response = await unfollowUser(username, token);
-  //   dispatch(setUser(response.data.user));
-  // }
 
   return (
     <>
@@ -123,7 +113,7 @@ export const ProfilePage = () => {
           )}
         </div>
       ) : (
-        <h4>LOADING</h4>
+        <Loader />
       )}
     </>
   );

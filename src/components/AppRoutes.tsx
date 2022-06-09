@@ -17,6 +17,7 @@ import {
   Layout,
   LoggedOutRoutes,
 } from "components";
+import { Loader } from "./Loader";
 
 export const AppRoutes = () => {
   return (
@@ -80,6 +81,7 @@ export const AppRoutes = () => {
         </Route>
 
         <Route path="/test" element={<TwopiRest />} />
+        <Route path="/load" element={<Loader />} />
       </Routes>
     </>
   );

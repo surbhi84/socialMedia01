@@ -5,6 +5,16 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
+      animation: {
+        customping: "animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;",
+      },
+
+      keyframes: {
+        customping: {
+          "75%, 100%": { transform: "scale(2)", opacity: "50" },
+        },
+      },
+
       colors: {
         primary: "#92FCDB",
         primaryLight: "#CBFEEE",
@@ -24,6 +34,7 @@ module.exports = {
       },
     },
   },
+
   plugins: [
     plugin(function ({ addUtilities }) {
       addUtilities({

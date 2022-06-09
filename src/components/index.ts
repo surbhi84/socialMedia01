@@ -18,3 +18,4 @@ export { DeletePopup } from "./DeletePopup";
 export { UserTile } from "./UserTile";
 export { LoggedOutRoutes } from "./LoggedOutRoutes";
 export { Layout } from "./Layout";
+export { Loader } from "./Loader";

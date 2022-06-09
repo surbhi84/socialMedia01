@@ -2,7 +2,7 @@ import { useAppSelector } from "hooks";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setDarkTheme } from "appRedux/themeSlice";
-import { AppRoutes, Header, Sidebar } from "./components";
+import { AppRoutes, Header, Loader, Sidebar } from "./components";
 import { Link } from "react-router-dom";
 import { updateUserState } from "appRedux/userSlice";
 import { getPosts, getUserFromToken } from "apiCalls";
@@ -52,10 +52,12 @@ function App() {
   return (
     <div className={`App flex flex-col h-full w-full `}>
       {isInitialRender ? (
-        <p>LOADING</p>
+        <Loader />
       ) : (
         <>
           <Link to="/test">twopi</Link>
+          <Link to="/load">loader</Link>
+
           <Header />
           <AppRoutes />
         </>

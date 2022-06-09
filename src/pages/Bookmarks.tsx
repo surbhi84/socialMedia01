@@ -1,7 +1,7 @@
 import { getBookmarks } from "apiCalls";
 import { postType } from "appRedux/postSlice";
 
-import { PostCard, Sidebar } from "components";
+import { PostCard } from "components";
 import { useAppSelector } from "hooks";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";

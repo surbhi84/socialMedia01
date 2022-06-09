@@ -55,9 +55,6 @@ export const SuggestionBox = () => {
             </UserTile>
           );
         })}
-        {/* <button className="bg-primaryLight px-2 py-1 w-full rounded-md dark:bg-darkLight hover:scale-105 duration-100 ml-auto">
-          Show more{" "}
-        </button> */}
       </div>
     </div>
   );

@@ -1,5 +1,3 @@
-import { Sidebar } from "components";
-
 export const Notifications = () => {
   return (
     <div className="flex flex-col gap-2 items-center w-full md:w-4/6 mt-8">

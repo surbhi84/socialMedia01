@@ -12,7 +12,7 @@ export const Comment = ({ comment }: { comment: commentsType }) => {
               : "/assets/bunny1.jpg"
           }
           alt="avatar image"
-          className=" w-8 h-8 sm:w-10 sm:h-10 rounded-full "
+          className=" w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover"
         />
       </Link>
 

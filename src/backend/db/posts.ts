@@ -8,6 +8,7 @@ import { formatDate } from "../utils/authUtils";
  * */
 
 export const posts = [
+  // 1
   {
     _id: "0121",
     content:
@@ -55,6 +56,7 @@ export const posts = [
     ],
   },
 
+  // 2
   {
     _id: "0124",
     content: "Monday Motivation",
@@ -100,6 +102,8 @@ export const posts = [
     createdAt: "2022-03-07T01:00:38+05:30",
     updatedAt: formatDate(),
   },
+
+  // 3
   {
     _id: "0127",
     content: "Ohh the flowers look so pretty.",

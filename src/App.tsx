@@ -1,11 +1,10 @@
-import { useAppSelector } from "hooks";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setDarkTheme } from "appRedux/themeSlice";
-import { AppRoutes, Header, Loader, Sidebar } from "./components";
+import { AppRoutes, Header, Loader } from "./components";
 import { Link } from "react-router-dom";
 import { updateUserState } from "appRedux/userSlice";
-import { getPosts, getUserFromToken } from "apiCalls";
+import { getUserFromToken } from "apiCalls";
 
 function App() {
   const [isInitialRender, setIsInitialRender] = useState(true);
@@ -57,7 +56,6 @@ function App() {
         <Loader />
       ) : (
         <>
-          <Link to="/test">twopi</Link>
           <Header />
           <AppRoutes />
         </>

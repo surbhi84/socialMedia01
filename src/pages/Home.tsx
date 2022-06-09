@@ -1,6 +1,13 @@
 import { postType } from "appRedux/postSlice";
-import { Createpost, DisplayPosts, Searchbar, SuggestionBox } from "components";
+import {
+  Createpost,
+  DisplayPosts,
+  Loader,
+  Searchbar,
+  SuggestionBox,
+} from "components";
 import { useAppSelector } from "hooks";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
   const postsData = useAppSelector((state) => state.posts.posts);
@@ -14,23 +21,16 @@ export const Home = () => {
 
   return (
     <>
-      {/* {user.following !== undefined ? ( */}
-      <>
-        {/* Main content, feed */}
-        <div className="flex flex-col sm:3/5 md:w-2/4 lg:w-2/4 gap-2">
-          <Createpost post={{} as postType} />
-          <DisplayPosts postsData={posts} />
-        </div>
-        {/* Suggestions */}
-        <div className="invisible md:visible">
-          <Searchbar />
-          <SuggestionBox />
-        </div>
-      </>
-      {/* ) : (
-        // <Loader />
-        <p>LOADING</p> */}
-      {/* )} */}
+      {/* Main content, feed */}
+      <div className="flex flex-col sm:3/5 md:w-2/4 lg:w-2/4 gap-2">
+        <Createpost post={{} as postType} />
+        <DisplayPosts postsData={posts} />
+      </div>
+      {/* Suggestions */}
+      <div className="invisible md:visible">
+        <Searchbar />
+        <SuggestionBox />
+      </div>
     </>
   );
 };

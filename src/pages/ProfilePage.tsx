@@ -1,6 +1,6 @@
-import { followUser, getPosts, getUserFromId, unfollowUser } from "apiCalls";
+import { getPosts, getUserFromId } from "apiCalls";
 import { setPosts } from "appRedux/postSlice";
-import { setUser, userType } from "appRedux/userSlice";
+import { userType } from "appRedux/userSlice";
 import { Loader, PostCard } from "components";
 import { useAppSelector } from "hooks";
 import { useEffect, useState } from "react";

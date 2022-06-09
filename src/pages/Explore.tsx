@@ -1,10 +1,4 @@
-import {
-  DisplayPosts,
-  PostCard,
-  Searchbar,
-  Sidebar,
-  SuggestionBox,
-} from "components";
+import { PostCard, Searchbar, SuggestionBox } from "components";
 import { useAppSelector } from "hooks";
 
 export const Explore = () => {

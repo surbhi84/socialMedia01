@@ -8,21 +8,25 @@ import {
   Login,
   Notifications,
   ProfilePage,
+  PostPage,
 } from "pages";
-import { SignupComponent } from "./signupComponent/SignupComponent";
-import { LoginComponent } from "./LoginComponent";
-import { PrivateRoutes } from "./PrivateRoutes";
-import { PostPage } from "pages";
-import { Layout } from "./Layout";
-import { userInfo } from "os";
+import {
+  SignupComponent,
+  LoginComponent,
+  PrivateRoutes,
+  Layout,
+  LoggedOutRoutes,
+} from "components";
 
 export const AppRoutes = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<LoginComponent />} />
-        <Route path="/signup" element={<SignupComponent />} />
+        <Route path="/" element={<LoggedOutRoutes />}>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<LoginComponent />} />
+          <Route path="/signup" element={<SignupComponent />} />
+        </Route>
 
         <Route path="/" element={<PrivateRoutes />}>
           <Route

@@ -147,3 +147,23 @@ export const removeBookmark = (postId: string, encodedToken: string) => {
     }
   );
 };
+
+// FOLLOW USER
+
+export const followUser = (username: string, encodedToken: string) => {
+  return axios.post(
+    `/api/users/follow/${username}`,
+    {},
+    { headers: { authorization: encodedToken } }
+  );
+};
+
+// UNFOLLOW USER
+
+export const unfollowUser = (username: string, encodedToken: string) => {
+  return axios.post(
+    `/api/users/unfollow/${username}`,
+    {},
+    { headers: { authorization: encodedToken } }
+  );
+};

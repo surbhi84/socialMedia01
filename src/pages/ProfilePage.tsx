@@ -1,14 +1,17 @@
-import { getUserFromId } from "apiCalls";
-import { userType } from "appRedux/userSlice";
+import { followUser, getUserFromId, unfollowUser } from "apiCalls";
+import { setUser, userType } from "appRedux/userSlice";
 import { PostCard } from "components";
 import { useAppSelector } from "hooks";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
 export const ProfilePage = () => {
-  const posts = useAppSelector((state) => state.posts.posts);
   const { username } = useParams();
+  const userData = useAppSelector((state) => state.userData);
+  const posts = useAppSelector((state) => state.posts.posts);
   const [userProfile, setUserProfile] = useState<userType>();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     (async function () {
@@ -18,7 +21,7 @@ export const ProfilePage = () => {
       console.log(response);
       setUserProfile(response);
     })();
-  }, [username]);
+  }, [username, userData.user]);
 
   const userPost = posts.filter((post) => {
     console.log(post.username, userProfile?.username);
@@ -26,6 +29,16 @@ export const ProfilePage = () => {
   });
 
   console.log(posts, userProfile);
+
+  async function followHandler(username: string, token: string) {
+    const response = await followUser(username, token);
+    dispatch(setUser(response.data.user));
+  }
+
+  async function unFollowHandler(username: string, token: string) {
+    const response = await unfollowUser(username, token);
+    dispatch(setUser(response.data.user));
+  }
 
   return (
     <>
@@ -50,12 +63,37 @@ export const ProfilePage = () => {
                 @{userProfile.username}
               </h4>
             </span>
-            <button className=" border border-primaryDark dark:border-primary dark:text-primary px-3 py-1 rounded-md text-base hover:scale-105 duration-300 ease-out ml-auto self-center dark:bg-darker bg-primaryLight sm:mr-10">
-              Follow
-            </button>
-            <button className=" border border-primaryDark dark:border-primary dark:text-primary px-3 py-1 rounded-md text-base  hover:scale-105 duration-75 ease-out ml-auto self-center dark:bg-darker bg-primaryLight sm:mr-10">
-              Unfollow
-            </button>
+            {userData.user.username !== userProfile.username ? (
+              <>
+                {userData.user.following.some((followedUser) => {
+                  // console.log(followedUser.username, userProfile.username);
+                  return followedUser.username == userProfile.username;
+                }) ? (
+                  <button
+                    className=" border border-primaryDark dark:border-primary dark:text-primary px-3 py-1 rounded-md text-base hover:scale-105 duration-300 ease-out ml-auto self-center dark:bg-darker bg-primaryLight sm:mr-10"
+                    onClick={() =>
+                      unFollowHandler(
+                        userProfile.username,
+                        userData.encodedToken
+                      )
+                    }
+                  >
+                    Unfollow
+                  </button>
+                ) : (
+                  <button
+                    className=" border border-primaryDark dark:border-primary dark:text-primary px-3 py-1 rounded-md text-base  hover:scale-105 duration-75 ease-out ml-auto self-center dark:bg-darker bg-primaryLight sm:mr-10"
+                    onClick={() =>
+                      followHandler(userProfile.username, userData.encodedToken)
+                    }
+                  >
+                    Follow
+                  </button>
+                )}
+              </>
+            ) : (
+              <></>
+            )}
           </div>
 
           {/* user detail block */}
@@ -72,7 +110,6 @@ export const ProfilePage = () => {
             <div className="flex flex-col items-center sm:text-lg">
               {userProfile.following.length} <span>Following</span>
             </div>
-            {/* <div>{user..length} Following </div> */}
           </div>
           {userPost.length > 0 ? (
             userPost.map((post) => <PostCard post={post} />)

@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { setDarkTheme } from "appRedux/themeSlice";
 import { AppRoutes, Header, Sidebar } from "./components";
 import { Link } from "react-router-dom";
-import { setToken, setUser, updateUserState } from "appRedux/userSlice";
+import { updateUserState } from "appRedux/userSlice";
 import { getPosts, getUserFromToken } from "apiCalls";
 
 function App() {

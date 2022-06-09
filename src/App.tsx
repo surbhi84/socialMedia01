@@ -1,24 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useAppSelector } from "hooks";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setDarkTheme } from "appRedux/themeSlice";
+import { AppRoutes, Header } from "./components";
+import { Link } from "react-router-dom";
 
 function App() {
+  const darkTheme = useAppSelector((state) => state.theme);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    let theme = localStorage.getItem("darkTheme");
+    if (theme !== undefined) {
+      if (theme === "true") {
+        dispatch(setDarkTheme(true));
+      } else if (theme === "false") {
+        dispatch(setDarkTheme(false));
+      }
+    }
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div
+      className={`App flex flex-col h-screen w-screen ${
+        darkTheme ? "dark " : ""
+      }`}
+    >
+      <Link to="/test">twopi</Link>
+      <Header />
+      <AppRoutes />
     </div>
   );
 }

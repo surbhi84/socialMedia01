@@ -18,30 +18,32 @@ export const Searchbar = () => {
     })();
   }, []);
 
-  console.log(users, "allUsers");
-
   function searchInputHandler(
     searchQuery: string,
     users: Array<userTypeRaw>,
     setSearchResult: React.Dispatch<React.SetStateAction<userTypeRaw[]>>
   ) {
-    console.log(searchQuery, "searchQyery");
+    // console.log(searchQuery, "searchQyery");
+    console.log("i");
     if (searchQuery.trim() !== "") {
       const searchRes = search(searchQuery.trim(), users, {
-        keySelector: (obj) => [obj.username, obj.firstName, obj.lastName],
+        keySelector: (obj) => [
+          obj.username,
+          obj.firstName,
+          obj.lastName,
+          obj.firstName + " " + obj.lastName,
+        ],
         threshold: 0.7,
-        // ignoreCase: true,
+        ignoreCase: true,
       });
-      console.log(searchRes, "searchRes");
+
       setSearchResult(searchRes);
     } else {
-      console.log("else");
-
       setSearchResult([]);
     }
   }
 
-  const debounceFun = (callbackFun: CallableFunction, timeout = 100) => {
+  const debounceFun = (callbackFun: CallableFunction, timeout = 500) => {
     let timer: NodeJS.Timeout;
     return (...args: any) => {
       clearTimeout(timer);
@@ -56,14 +58,11 @@ export const Searchbar = () => {
         users: Array<userTypeRaw>,
         setSearchQuery: React.Dispatch<React.SetStateAction<string>>
       ) => {
-        console.log("inside debouncesearch", users);
         searchInputHandler(searchTerms, users, setSearchResult);
       }
     ),
     []
   );
-
-  // console.log(searchQuery,"sea");
 
   return (
     <div className="flex flex-col gap-2">

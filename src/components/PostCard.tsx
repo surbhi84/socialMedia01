@@ -54,6 +54,7 @@ export const PostCard = ({ post }: { post: postType }) => {
               ? post.userAvatar
               : `/assets/bunny1.jpg`
           }
+          loading="lazy"
           alt="avatar image"
           className=" w-12 h-12 rounded-full "
           onClick={(e) => e.stopPropagation()}

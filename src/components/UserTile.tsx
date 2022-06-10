@@ -22,7 +22,6 @@ export const UserTile = ({
     e.stopPropagation();
     const response = await followUser(suggestedUsername, userData.encodedToken);
     dispatch(setUser(response.data.user));
-    console.log(response.data.user);
   }
 
   return (

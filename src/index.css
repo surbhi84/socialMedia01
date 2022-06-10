@@ -1294,10 +1294,6 @@ Ensure the default browser behavior of the `hidden` attribute.
     height: 11rem;
   }
 
-  .sm\:min-h-full {
-    min-height: 100%;
-  }
-
   .sm\:w-10 {
     width: 2.5rem;
   }

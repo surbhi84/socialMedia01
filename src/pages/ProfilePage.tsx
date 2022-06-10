@@ -1,10 +1,12 @@
-import { followUser, getUserFromId, unfollowUser } from "apiCalls";
-import { setUser, userType } from "appRedux/userSlice";
-import { PostCard } from "components";
+import { getPosts, getUserFromId } from "apiCalls";
+import { setPosts } from "appRedux/postSlice";
+import { userType } from "appRedux/userSlice";
+import { Loader, PostCard } from "components";
 import { useAppSelector } from "hooks";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { followHandler, unFollowHandler } from "updateHandlers";
 
 export const ProfilePage = () => {
   const { username } = useParams();
@@ -18,27 +20,16 @@ export const ProfilePage = () => {
       const response = await getUserFromId(username as string).then(
         (res) => res.data.user
       );
-      console.log(response);
+
       setUserProfile(response);
+      const posts = await getPosts().then((res) => res.data.posts);
+      dispatch(setPosts(posts));
     })();
   }, [username, userData.user]);
 
   const userPost = posts.filter((post) => {
-    console.log(post.username, userProfile?.username);
     return post.username === userProfile?.username;
   });
-
-  console.log(posts, userProfile);
-
-  async function followHandler(username: string, token: string) {
-    const response = await followUser(username, token);
-    dispatch(setUser(response.data.user));
-  }
-
-  async function unFollowHandler(username: string, token: string) {
-    const response = await unfollowUser(username, token);
-    dispatch(setUser(response.data.user));
-  }
 
   return (
     <>
@@ -66,7 +57,6 @@ export const ProfilePage = () => {
             {userData.user.username !== userProfile.username ? (
               <>
                 {userData.user.following.some((followedUser) => {
-                  // console.log(followedUser.username, userProfile.username);
                   return followedUser.username == userProfile.username;
                 }) ? (
                   <button
@@ -74,7 +64,8 @@ export const ProfilePage = () => {
                     onClick={() =>
                       unFollowHandler(
                         userProfile.username,
-                        userData.encodedToken
+                        userData.encodedToken,
+                        dispatch
                       )
                     }
                   >
@@ -84,7 +75,11 @@ export const ProfilePage = () => {
                   <button
                     className=" border border-primaryDark dark:border-primary dark:text-primary px-3 py-1 rounded-md text-base  hover:scale-105 duration-75 ease-out ml-auto self-center dark:bg-darker bg-primaryLight sm:mr-10"
                     onClick={() =>
-                      followHandler(userProfile.username, userData.encodedToken)
+                      followHandler(
+                        userProfile.username,
+                        userData.encodedToken,
+                        dispatch
+                      )
                     }
                   >
                     Follow
@@ -112,13 +107,13 @@ export const ProfilePage = () => {
             </div>
           </div>
           {userPost.length > 0 ? (
-            userPost.map((post) => <PostCard post={post} />)
+            userPost.map((post) => <PostCard post={post} key={post._id} />)
           ) : (
             <h4>No posts yet! </h4>
           )}
         </div>
       ) : (
-        <h4>LOADING</h4>
+        <Loader />
       )}
     </>
   );

@@ -15,3 +15,7 @@ export { AddComment } from "./AddComment";
 export { LogoutBtn } from "./LogoutBtn";
 export { PrivateRoutes } from "./PrivateRoutes";
 export { DeletePopup } from "./DeletePopup";
+export { UserTile } from "./UserTile";
+export { LoggedOutRoutes } from "./LoggedOutRoutes";
+export { Layout } from "./Layout";
+export { Loader } from "./Loader";

@@ -1,16 +1,12 @@
-import { useAppSelector } from "hooks";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setDarkTheme } from "appRedux/themeSlice";
-import { AppRoutes, Header, Sidebar } from "./components";
+import { AppRoutes, Header, Loader } from "./components";
 import { Link } from "react-router-dom";
-import { setToken, setUser, updateUserState } from "appRedux/userSlice";
-import { getPosts, getUserFromToken } from "apiCalls";
-import { setPosts } from "appRedux/postSlice";
+import { updateUserState } from "appRedux/userSlice";
+import { getUserFromToken } from "apiCalls";
 
 function App() {
-  const darkTheme = useAppSelector((state) => state.theme);
-  const token = useAppSelector((state) => state.userData.encodedToken);
   const [isInitialRender, setIsInitialRender] = useState(true);
 
   const dispatch = useDispatch();
@@ -24,10 +20,7 @@ function App() {
           const user = await getUserFromToken(token).then(
             (res) => res.data.user
           );
-
           dispatch(updateUserState({ encodedToken: token, user }));
-          const posts = await getPosts().then((res) => res.data.posts);
-          dispatch(setPosts(posts));
         }
       } catch (err) {
         console.error(err);
@@ -40,7 +33,7 @@ function App() {
   // For Theme
   useEffect(() => {
     let theme = localStorage.getItem("darkTheme");
-    if (theme !== undefined) {
+    if (theme !== undefined && theme !== null) {
       if (theme === "true") {
         window.document.documentElement.classList.add("dark");
         localStorage.setItem("darkTheme", "true");
@@ -50,16 +43,19 @@ function App() {
         localStorage.setItem("darkTheme", "false");
         dispatch(setDarkTheme(false));
       }
+    } else {
+      window.document.documentElement.classList.add("dark");
+      localStorage.setItem("darkTheme", "true");
+      dispatch(setDarkTheme(true));
     }
   }, []);
 
   return (
     <div className={`App flex flex-col h-full w-full `}>
       {isInitialRender ? (
-        <p>LOADING</p>
+        <Loader />
       ) : (
         <>
-          <Link to="/test">twopi</Link>
           <Header />
           <AppRoutes />
         </>

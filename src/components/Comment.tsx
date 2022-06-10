@@ -2,7 +2,6 @@ import { commentsType } from "appRedux/postSlice";
 import { Link } from "react-router-dom";
 
 export const Comment = ({ comment }: { comment: commentsType }) => {
-  console.log(comment);
   return (
     <div className="flex flex-row items-center gap-3 rounded-lg p-3 my-3 dark:bg-darkLight ">
       <Link to={`/profile/${comment.username}`}>
@@ -13,7 +12,7 @@ export const Comment = ({ comment }: { comment: commentsType }) => {
               : "/assets/bunny1.jpg"
           }
           alt="avatar image"
-          className=" w-8 h-8 sm:w-10 sm:h-10 rounded-full "
+          className=" w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover"
         />
       </Link>
 

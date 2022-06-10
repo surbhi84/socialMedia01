@@ -33,12 +33,12 @@ export const PostPage = () => {
     setShowOptions(false);
   };
 
-  // useEffect(() => {
-  //   (async function () {
-  //     const response = await getPosts().then((res) => res.data.posts);
-  //     dispatch(setPosts(response));
-  //   })();
-  // }, []);
+  useEffect(() => {
+    (async function () {
+      const response = await getPosts().then((res) => res.data.posts);
+      dispatch(setPosts(response));
+    })();
+  }, []);
 
   return (
     <>

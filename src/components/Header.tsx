@@ -3,19 +3,19 @@ import { MdDarkMode } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { isDarkTheme } from "appRedux";
 import { useAppSelector } from "hooks";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { LogoutBtn } from "./LogoutBtn";
-import { setDarkTheme } from "appRedux/themeSlice";
 
 export const Header = () => {
   const dispatch = useDispatch();
   const darkTheme: boolean = useAppSelector((state) => state.theme);
   const token = useAppSelector((state) => state.userData.encodedToken);
+  const location = useLocation();
 
   const themeSetter = () => {
     dispatch(isDarkTheme());
     localStorage.setItem("darkTheme", (!darkTheme).toString());
-    console.log(darkTheme);
+
     if (darkTheme === false) {
       window.document.documentElement.classList.add("dark");
     } else if (darkTheme === true) {
@@ -26,7 +26,11 @@ export const Header = () => {
   return (
     <header className=" flex flex-row p-2 pb-2 gap-1 dark:bg-darkCol ">
       <img src="/assets/pin.svg" alt="logo image" className=" h-8 " />
-      <Link to="/">
+      <Link
+        to={
+          token !== undefined || token !== null || token !== "" ? "/home" : "/"
+        }
+      >
         <h1 className=" text-2xl self-center text-darkCol dark:text-primary ">
           Social
         </h1>
@@ -43,7 +47,11 @@ export const Header = () => {
             onClick={themeSetter}
           />
         )}
-        {token && token !== "" && <LogoutBtn />}
+        {location.pathname !== "/login" &&
+          location.pathname !== "/signup" &&
+          token !== undefined &&
+          token !== "" &&
+          token !== null && <LogoutBtn />}
       </div>
     </header>
   );

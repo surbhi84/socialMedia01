@@ -1,5 +1,6 @@
-import { postPost } from "apiCalls";
-import { setPosts } from "appRedux/postSlice";
+import { editPost, postPost } from "apiCalls";
+import { setError } from "appRedux/miscSlice";
+import { postType, setPosts } from "appRedux/postSlice";
 import { useAppSelector } from "hooks";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -7,15 +8,28 @@ import {
   MdOutlineAddPhotoAlternate,
 } from "react-icons/md";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-export const Createpost = () => {
+export const Createpost = ({
+  post,
+  setIsEditPost,
+}: {
+  post: postType;
+  setIsEditPost?: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const userData = useAppSelector((state) => state.userData);
-  const [uploadedImg, setUploadedImg] = useState<FileList>({} as FileList);
-  const [postText, setPostText] = useState("");
+  // filelist is used here so in future multiple images can be added as well
+  const [uploadedImg, setUploadedImg] = useState<FileList | string>(
+    post.img !== undefined ? post.img : ({} as FileList)
+  );
+  const [postText, setPostText] = useState(
+    post.content !== undefined ? post.content : ""
+  );
   const [showEmoji, setShowEmoji] = useState(false);
   const heightRef = useRef<HTMLTextAreaElement>(null);
   const imgRef = useRef<Array<string>>([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const emojiArray = [
     "😅",
@@ -36,11 +50,26 @@ export const Createpost = () => {
     "♻",
   ];
 
+  async function editPostHandler() {
+    try {
+      const response = await editPost(
+        post._id,
+        postText,
+        uploadedImg,
+        userData.encodedToken
+      ).then((res) => res.data.posts);
+      dispatch(setPosts(response));
+      if (setIsEditPost !== undefined) setIsEditPost(false);
+    } catch (err) {
+      setError("Something went wrong can't edit post!");
+    }
+  }
+
   async function postHandler() {
     try {
       const response = await postPost(
         postText,
-        uploadedImg,
+        uploadedImg as FileList,
         userData.encodedToken
       );
 
@@ -55,6 +84,8 @@ export const Createpost = () => {
       console.error(err);
     }
   }
+
+  // The below useEffect releases the created url for the image that is shown inside the createpost component, as it is no longer needed it doesn't serve any purpose to have it in the memory.
 
   useEffect(() => {
     return () => {
@@ -76,7 +107,7 @@ export const Createpost = () => {
       )}
       <div className=" flex flex-row gap-2 ">
         <img
-          src="/assets/bunny1.jpg"
+          src={userData.user.userAvatar}
           alt="avatar"
           className=" w-12 h-12 rounded-full "
         />
@@ -90,7 +121,13 @@ export const Createpost = () => {
             style={{ height: heightRef.current?.scrollHeight }}
           />
 
-          {uploadedImg.length > 0 &&
+          {typeof uploadedImg === "string" ? (
+            <img
+              src={uploadedImg}
+              alt="post image"
+              className="h-20 w-32 my-1"
+            />
+          ) : (
             Object.values(uploadedImg).map((i) => {
               const localVar = window.URL.createObjectURL(i);
               imgRef.current.push(localVar);
@@ -102,7 +139,8 @@ export const Createpost = () => {
                   className="h-20 w-32 my-1"
                 />
               );
-            })}
+            })
+          )}
 
           <div className=" flex flex-row relative ml-auto mt-auto gap-1 sm:gap-2 text-darkCol dark:text-primary">
             <span
@@ -148,13 +186,21 @@ export const Createpost = () => {
           </div>
         </div>
       </div>
-
-      <button
-        className="bg-primaryLight px-2 py-1 w-44 rounded-md dark:bg-darkLight hover:scale-105 duration-100 ml-auto"
-        onClick={postHandler}
-      >
-        Add post
-      </button>
+      {post._id !== undefined ? (
+        <button
+          className="bg-primaryLight px-2 py-1 w-44 rounded-md dark:bg-darkLight hover:scale-105 duration-100 ml-auto"
+          onClick={editPostHandler}
+        >
+          Save changes
+        </button>
+      ) : (
+        <button
+          className="bg-primaryLight px-2 py-1 w-44 rounded-md dark:bg-darkLight hover:scale-105 duration-100 ml-auto"
+          onClick={postHandler}
+        >
+          Add post
+        </button>
+      )}
     </div>
   );
 };

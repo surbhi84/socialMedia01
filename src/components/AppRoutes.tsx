@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import TwopiRest from "twopi-rest";
 import {
   Bookmarks,
   Explore,
@@ -6,12 +7,14 @@ import {
   LandingPage,
   Login,
   Notifications,
-  Profile,
+  ProfilePage,
 } from "pages";
 import { SignupComponent } from "./signupComponent/SignupComponent";
 import { LoginComponent } from "./LoginComponent";
-import TwopiRest from "twopi-rest";
 import { PrivateRoutes } from "./PrivateRoutes";
+import { PostPage } from "pages";
+import { Layout } from "./Layout";
+import { userInfo } from "os";
 
 export const AppRoutes = () => {
   return (
@@ -20,12 +23,56 @@ export const AppRoutes = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginComponent />} />
         <Route path="/signup" element={<SignupComponent />} />
+
         <Route path="/" element={<PrivateRoutes />}>
-          <Route path="/home" element={<Home />} />
-          <Route path="/explore" element={<Explore />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/notifications" element={<Notifications />} />
-          <Route path="/bookmarks" element={<Bookmarks />} />
+          <Route
+            path="/home"
+            element={
+              <Layout>
+                <Home />
+              </Layout>
+            }
+          />
+          <Route
+            path="/explore"
+            element={
+              <Layout>
+                <Explore />
+              </Layout>
+            }
+          />
+          <Route
+            path="/post/:postid"
+            element={
+              <Layout>
+                <PostPage />
+              </Layout>
+            }
+          />
+          <Route
+            path="/profile/:username"
+            element={
+              <Layout>
+                <ProfilePage />
+              </Layout>
+            }
+          />
+          <Route
+            path="/notifications"
+            element={
+              <Layout>
+                <Notifications />
+              </Layout>
+            }
+          />
+          <Route
+            path="/bookmarks"
+            element={
+              <Layout>
+                <Bookmarks />
+              </Layout>
+            }
+          />
         </Route>
 
         <Route path="/test" element={<TwopiRest />} />

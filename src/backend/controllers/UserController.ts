@@ -1,6 +1,7 @@
 //@ts-nocheck
 import { Response } from "miragejs";
 import { formatDate, requiresAuth } from "../utils/authUtils";
+import { serializeUser } from "../utils/authUtils";
 
 /**
  * All the routes related to user are present here.
@@ -12,19 +13,27 @@ import { formatDate, requiresAuth } from "../utils/authUtils";
  * */
 
 export const getAllUsersHandler = function () {
-  return new Response(200, {}, { users: this.db.users });
+  return new Response(
+    200,
+    {},
+    {
+      users: this.db.users.map(function (i) {
+        return serializeUser(this, i);
+      }, this),
+    }
+  );
 };
 
 /**
  * This handler handles get a user from userId in the db.
- * send GET Request at /api/users/:userId
- * */
+ * send GET Request at /api/users/:username
+ **/
 
 export const getUserHandler = function (schema, request) {
-  const userId = request.params.userId;
+  const username = request.params.username;
   try {
-    const user = schema.users.findBy({ _id: userId }).attrs;
-    return new Response(200, {}, { user });
+    let user = schema.users.findBy({ username: username }).attrs;
+    return new Response(200, {}, { user: serializeUser(this, user) });
   } catch (error) {
     return new Response(
       500,
@@ -59,7 +68,7 @@ export const editUserHandler = function (schema, request) {
     const { userData } = JSON.parse(request.requestBody);
     user = { ...user, ...userData, updatedAt: formatDate() };
     this.db.users.update({ _id: user._id }, user);
-    return new Response(201, {}, { user });
+    return new Response(201, {}, { user: serializeUser(this, user) });
   } catch (error) {
     return new Response(
       500,
@@ -196,15 +205,142 @@ export const removePostFromBookmarkHandler = function (schema, request) {
   }
 };
 
+// /**
+//  * This handler handles follow action.
+//  * send POST Request at /api/users/follow/:followUserId/
+//  * */
+
+// export const followUserHandler = function (schema, request) {
+//   const user = requiresAuth.call(this, request);
+//   const { followUserId } = request.params;
+//   const followUser = schema.users.findBy({ _id: followUserId }).attrs;
+//   try {
+//     if (!user) {
+//       return new Response(
+//         404,
+//         {},
+//         {
+//           errors: [
+//             "The username you entered is not Registered. Not Found error",
+//           ],
+//         }
+//       );
+//     }
+//     const isFollowing = user.following.some(
+//       (currUser) => currUser._id === followUser._id
+//     );
+
+//     if (isFollowing) {
+//       return new Response(400, {}, { errors: ["User Already following"] });
+//     }
+
+//     const updatedUser = {
+//       ...user,
+//       following: [...user.following, { ...followUser }],
+//     };
+//     const updatedFollowUser = {
+//       ...followUser,
+//       followers: [...followUser.followers, { ...user }],
+//     };
+//     this.db.users.update(
+//       { _id: user._id },
+//       { ...updatedUser, updatedAt: formatDate() }
+//     );
+//     this.db.users.update(
+//       { _id: followUser._id },
+//       { ...updatedFollowUser, updatedAt: formatDate() }
+//     );
+//     return new Response(
+//       200,
+//       {},
+//       { user: updatedUser, followUser: updatedFollowUser }
+//     );
+//   } catch (error) {
+//     return new Response(
+//       500,
+//       {},
+//       {
+//         error,
+//       }
+//     );
+//   }
+// };
+
+// /**
+//  * This handler handles unfollow action.
+//  * send POST Request at /api/users/unfollow/:followUserId/
+//  * */
+
+// export const unfollowUserHandler = function (schema, request) {
+//   const user = requiresAuth.call(this, request);
+//   const { followUserId } = request.params;
+//   const followUser = this.db.users.findBy({ _id: followUserId });
+//   try {
+//     if (!user) {
+//       return new Response(
+//         404,
+//         {},
+//         {
+//           errors: [
+//             "The username you entered is not Registered. Not Found error",
+//           ],
+//         }
+//       );
+//     }
+//     const isFollowing = user.following.some(
+//       (currUser) => currUser._id === followUser._id
+//     );
+
+//     if (!isFollowing) {
+//       return new Response(400, {}, { errors: ["User already not following"] });
+//     }
+
+//     const updatedUser = {
+//       ...user,
+//       following: user.following.filter(
+//         (currUser) => currUser._id !== followUser._id
+//       ),
+//     };
+//     const updatedFollowUser = {
+//       ...followUser,
+//       followers: followUser.followers.filter(
+//         (currUser) => currUser._id !== user._id
+//       ),
+//     };
+//     this.db.users.update(
+//       { _id: user._id },
+//       { ...updatedUser, updatedAt: formatDate() }
+//     );
+//     this.db.users.update(
+//       { _id: followUser._id },
+//       { ...updatedFollowUser, updatedAt: formatDate() }
+//     );
+//     return new Response(
+//       200,
+//       {},
+//       { user: updatedUser, followUser: updatedFollowUser }
+//     );
+//   } catch (error) {
+//     return new Response(
+//       500,
+//       {},
+//       {
+//         error,
+//       }
+//     );
+//   }
+// };
+
 /**
  * This handler handles follow action.
- * send POST Request at /api/users/follow/:followUserId/
- * */
+ * send POST Request at /api/users/follow/:followUsername/
+ **/
 
 export const followUserHandler = function (schema, request) {
   const user = requiresAuth.call(this, request);
-  const { followUserId } = request.params;
-  const followUser = schema.users.findBy({ _id: followUserId }).attrs;
+  const { username: followUsername } = request.params;
+  const followUser = schema.users.findBy({ username: followUsername }).attrs;
+
   try {
     if (!user) {
       return new Response(
@@ -218,33 +354,45 @@ export const followUserHandler = function (schema, request) {
       );
     }
     const isFollowing = user.following.some(
-      (currUser) => currUser._id === followUser._id
+      (currUser) => currUser === followUsername
     );
 
     if (isFollowing) {
-      return new Response(400, {}, { errors: ["User Already following"] });
+      return new Response(
+        200,
+        {},
+        {
+          user: serializeUser(this, user),
+          followUser: serializeUser(this, followUser),
+        }
+      );
     }
 
     const updatedUser = {
       ...user,
-      following: [...user.following, { ...followUser }],
+      following: [...user.following, followUsername],
     };
+
     const updatedFollowUser = {
       ...followUser,
-      followers: [...followUser.followers, { ...user }],
+      followers: [...followUser.followers, user.username],
     };
+
     this.db.users.update(
-      { _id: user._id },
+      { username: user.username },
       { ...updatedUser, updatedAt: formatDate() }
     );
     this.db.users.update(
-      { _id: followUser._id },
+      { username: followUsername },
       { ...updatedFollowUser, updatedAt: formatDate() }
     );
     return new Response(
       200,
       {},
-      { user: updatedUser, followUser: updatedFollowUser }
+      {
+        user: serializeUser(this, updatedUser),
+        followUser: serializeUser(this, updatedFollowUser),
+      }
     );
   } catch (error) {
     return new Response(
@@ -259,13 +407,13 @@ export const followUserHandler = function (schema, request) {
 
 /**
  * This handler handles unfollow action.
- * send POST Request at /api/users/unfollow/:followUserId/
+ * send POST Request at /api/users/unfollow/:followUsername/
  * */
 
 export const unfollowUserHandler = function (schema, request) {
   const user = requiresAuth.call(this, request);
-  const { followUserId } = request.params;
-  const followUser = this.db.users.findBy({ _id: followUserId });
+  const { username: followUsername } = request.params;
+  const followUser = this.db.users.findBy({ username: followUsername });
   try {
     if (!user) {
       return new Response(
@@ -279,37 +427,47 @@ export const unfollowUserHandler = function (schema, request) {
       );
     }
     const isFollowing = user.following.some(
-      (currUser) => currUser._id === followUser._id
+      (currUser) => currUser === followUsername
     );
 
     if (!isFollowing) {
-      return new Response(400, {}, { errors: ["User already not following"] });
+      return new Response(
+        200,
+        {},
+        {
+          user: serializeUser(this, user),
+          followUser: serializeUser(this, followUser),
+        }
+      );
     }
 
     const updatedUser = {
       ...user,
       following: user.following.filter(
-        (currUser) => currUser._id !== followUser._id
+        (currUser) => currUser !== followUsername
       ),
     };
     const updatedFollowUser = {
       ...followUser,
       followers: followUser.followers.filter(
-        (currUser) => currUser._id !== user._id
+        (currUser) => currUser !== user.username
       ),
     };
     this.db.users.update(
-      { _id: user._id },
+      { username: user.username },
       { ...updatedUser, updatedAt: formatDate() }
     );
     this.db.users.update(
-      { _id: followUser._id },
+      { username: followUsername },
       { ...updatedFollowUser, updatedAt: formatDate() }
     );
     return new Response(
       200,
       {},
-      { user: updatedUser, followUser: updatedFollowUser }
+      {
+        user: serializeUser(this, updatedUser),
+        followUser: serializeUser(this, updatedFollowUser),
+      }
     );
   } catch (error) {
     return new Response(

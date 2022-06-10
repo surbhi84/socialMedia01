@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginCall } from "apiCalls";
 import { useDispatch } from "react-redux";
-import { setUser } from "appRedux/userSlice";
+import { updateUserState } from "appRedux/userSlice";
 
 export const LoginComponent = () => {
   const [show, setShow] = useState(false);
@@ -16,7 +16,7 @@ export const LoginComponent = () => {
     try {
       const response = await loginCall(username, pwd).then((res) => res.data);
       localStorage.setItem("token", response.encodedToken);
-      dispatch(setUser(response));
+      dispatch(updateUserState(response));
       navigate("/home");
     } catch (err) {
       console.error(err);

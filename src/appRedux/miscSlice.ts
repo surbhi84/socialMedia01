@@ -2,9 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface miscTypes {
   error: string;
+  isAuth: boolean;
 }
 const initialState: miscTypes = {
   error: "",
+  isAuth: false,
 };
 
 export const miscSlice = createSlice({
@@ -15,8 +17,11 @@ export const miscSlice = createSlice({
       state.error = action.payload;
       return state;
     },
+    updateIsAuth: (state) => {
+      state.isAuth = !state.isAuth;
+    },
   },
 });
 
-export const { setError } = miscSlice.actions;
+export const { setError, updateIsAuth } = miscSlice.actions;
 export default miscSlice.reducer;

@@ -54,13 +54,18 @@ export const addPostCommentHandler = function (schema, request) {
       _id: uuid(),
       ...commentData,
       username: user.username,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      userAvatar: user.userAvatar,
       votes: { upvotedBy: [], downvotedBy: [] },
       createdAt: formatDate(),
       updatedAt: formatDate(),
     };
+
     const post = schema.posts.findBy({ _id: postId }).attrs;
     post.comments.push(comment);
     this.db.posts.update({ _id: postId }, post);
+
     return new Response(201, {}, { comments: post.comments });
   } catch (error) {
     return new Response(

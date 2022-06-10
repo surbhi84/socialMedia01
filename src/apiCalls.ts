@@ -22,6 +22,11 @@ export const getUserFromToken = (encodedToken: string) =>
     headers: { authorization: encodedToken },
   });
 
+// GET USER VIA USER ID
+
+export const getUserFromId = (username: string) =>
+  axios.get(`/api/users/${username}`);
+
 // GET USERS
 
 export const getUsers = () => {
@@ -73,6 +78,44 @@ export const dislikePost = (postId: string, encodedToken: string) => {
   );
 };
 
+// DELETE POST
+export const deletePost = (postId: string, encodedToken: string) => {
+  return axios.delete(`/api/posts/${postId}`, {
+    headers: { authorization: encodedToken },
+  });
+};
+
+// EDIT POST
+export const editPost = (
+  postId: string,
+  content: string,
+  img: FileList | string,
+  encodedToken: string
+) => {
+  const formData = new FormData();
+  formData.set("content", content);
+  formData.set("img", typeof img === "string" ? img : img[0]);
+  return axios.post(`/api/posts/edit/${postId}`, formData, {
+    headers: { authorization: encodedToken },
+  });
+};
+
+// ADD POST COMMENT
+
+export const addPostComment = (
+  postId: string,
+  comment: string,
+  encodedToken: string
+) => {
+  return axios.post(
+    `/api/comments/add/${postId}`,
+    { commentData: { text: comment } },
+    {
+      headers: { authorization: encodedToken },
+    }
+  );
+};
+
 // GET BOOKMARK
 
 export const getBookmarks = (encodedToken: string) => {
@@ -93,7 +136,7 @@ export const addBookmark = (postId: string, encodedToken: string) => {
   );
 };
 
-// BOOKMARK
+// REMOVE BOOKMARK
 
 export const removeBookmark = (postId: string, encodedToken: string) => {
   return axios.post(
@@ -102,5 +145,25 @@ export const removeBookmark = (postId: string, encodedToken: string) => {
     {
       headers: { authorization: encodedToken },
     }
+  );
+};
+
+// FOLLOW USER
+
+export const followUser = (username: string, encodedToken: string) => {
+  return axios.post(
+    `/api/users/follow/${username}`,
+    {},
+    { headers: { authorization: encodedToken } }
+  );
+};
+
+// UNFOLLOW USER
+
+export const unfollowUser = (username: string, encodedToken: string) => {
+  return axios.post(
+    `/api/users/unfollow/${username}`,
+    {},
+    { headers: { authorization: encodedToken } }
   );
 };

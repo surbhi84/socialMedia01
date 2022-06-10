@@ -1,16 +1,32 @@
-export const Comment = () => {
+import { commentsType } from "appRedux/postSlice";
+import { Link } from "react-router-dom";
+
+export const Comment = ({ comment }: { comment: commentsType }) => {
+  console.log(comment);
   return (
-    <div className="flex flex-col gap-1  ">
-      {/* <h4>{post.firstName + " " + post.lastName} </h4> */}
-      <span className="flex gap-1 text-primaryDark dark:text-primary">
-        <h5>Surbhi Kukreti</h5>
-        <span className=" text-primaryDark "> @sskukreti</span>
-      </span>
-      <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Debitis
-        deleniti asperiores impedit dolores soluta dolor, vitae consequuntur
-        eligendi qui omnis?
-      </p>
+    <div className="flex flex-row items-center gap-3 rounded-lg p-3 my-3 dark:bg-darkLight ">
+      <Link to={`/profile/${comment.username}`}>
+        <img
+          src={
+            comment.userAvatar !== undefined
+              ? comment.userAvatar
+              : "/assets/bunny1.jpg"
+          }
+          alt="avatar image"
+          className=" w-8 h-8 sm:w-10 sm:h-10 rounded-full "
+        />
+      </Link>
+
+      <div>
+        <span className="flex gap-1 flex-wrap text-primaryDark dark:text-primary">
+          <Link to={`/profile/${comment.username}`} className="flex gap-1">
+            <h5>{comment.firstName + " " + comment.lastName}</h5>
+            <span className=" text-primaryDark "> @{comment.username}</span>
+          </Link>
+          <span className="text-sm dark:text-white self-center">commented</span>
+        </span>
+        <p>{comment.text}</p>
+      </div>
     </div>
   );
 };

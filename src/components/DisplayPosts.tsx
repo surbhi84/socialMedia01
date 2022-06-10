@@ -1,12 +1,11 @@
 import { getPosts } from "apiCalls";
-import { setPosts } from "appRedux/postSlice";
-import { postType } from "backend/db/posts";
-import { useAppDispatch, useAppSelector } from "hooks";
+import { postType, setPosts } from "appRedux/postSlice";
+
+import { useAppDispatch } from "hooks";
 import { useEffect } from "react";
 import { PostCard } from "./PostCard";
 
-export const DisplayPosts = () => {
-  const postsData = useAppSelector((state) => state.posts.posts);
+export const DisplayPosts = ({ postsData }: { postsData: Array<postType> }) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -16,9 +15,17 @@ export const DisplayPosts = () => {
     })();
   }, []);
 
+  function sortByTime() {
+    return [...postsData].sort((a: postType, b: postType) => {
+      let date1 = new Date(a.createdAt);
+      let date2 = new Date(b.createdAt);
+      return date2.getTime() - date1.getTime();
+    });
+  }
+
   return (
     <>
-      {postsData.map((post: postType) => {
+      {sortByTime().map((post: postType) => {
         return <PostCard post={post} key={post._id} />;
       })}
     </>

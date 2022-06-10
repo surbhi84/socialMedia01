@@ -1,40 +1,41 @@
 //@ts-nocheck
-import { Server, Model, RestSerializer } from "miragejs";
-import { posts } from "./backend/db/posts";
-import { users } from "./backend/db/users";
+import { Model, RestSerializer, Server } from "miragejs";
+
 import {
   loginHandler,
   signupHandler,
   tokenLoginHandler,
 } from "./backend/controllers/AuthController";
 import {
-  createPostHandler,
-  getAllpostsHandler,
-  getPostHandler,
-  deletePostHandler,
-  editPostHandler,
-  likePostHandler,
-  dislikePostHandler,
-  getAllUserPostsHandler,
-} from "./backend/controllers/PostController";
-import {
-  getPostCommentsHandler,
   addPostCommentHandler,
-  editPostCommentHandler,
   deletePostCommentHandler,
-  upvotePostCommentHandler,
   downvotePostCommentHandler,
+  editPostCommentHandler,
+  getPostCommentsHandler,
+  upvotePostCommentHandler,
 } from "./backend/controllers/CommentsController";
 import {
+  createPostHandler,
+  deletePostHandler,
+  dislikePostHandler,
+  editPostHandler,
+  getAllpostsHandler,
+  getAllUserPostsHandler,
+  getPostHandler,
+  likePostHandler,
+} from "./backend/controllers/PostController";
+import {
+  bookmarkPostHandler,
+  editUserHandler,
   followUserHandler,
   getAllUsersHandler,
-  getUserHandler,
   getBookmarkPostsHandler,
-  bookmarkPostHandler,
+  getUserHandler,
   removePostFromBookmarkHandler,
   unfollowUserHandler,
-  editUserHandler,
 } from "./backend/controllers/UserController";
+import { posts } from "./backend/db/posts";
+import { users } from "./backend/db/users";
 
 export function makeServer({ environment = "development" } = {}) {
   return new Server({
@@ -54,9 +55,6 @@ export function makeServer({ environment = "development" } = {}) {
       users.forEach((item) =>
         server.create("user", {
           ...item,
-          followers: [],
-          following: [],
-          bookmarks: [],
         })
       );
       posts.forEach((item) => server.create("post", { ...item }));
@@ -104,21 +102,18 @@ export function makeServer({ environment = "development" } = {}) {
       );
       // user routes (public)
       this.get("/users", getAllUsersHandler.bind(this));
-      this.get("/users/:userId", getUserHandler.bind(this));
+      this.get("/users/:username", getUserHandler.bind(this));
 
       // user routes (private)
-      this.post("users/edit", editUserHandler.bind(this));
+      this.post("/users/edit", editUserHandler.bind(this));
       this.get("/users/bookmark", getBookmarkPostsHandler.bind(this));
       this.post("/users/bookmark/:postId/", bookmarkPostHandler.bind(this));
       this.post(
         "/users/remove-bookmark/:postId/",
         removePostFromBookmarkHandler.bind(this)
       );
-      this.post("/users/follow/:followUserId/", followUserHandler.bind(this));
-      this.post(
-        "/users/unfollow/:followUserId/",
-        unfollowUserHandler.bind(this)
-      );
+      this.post("/users/follow/:username/", followUserHandler.bind(this));
+      this.post("/users/unfollow/:username/", unfollowUserHandler.bind(this));
     },
   });
 }

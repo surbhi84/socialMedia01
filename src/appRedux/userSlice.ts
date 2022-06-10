@@ -1,22 +1,41 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { postType } from "backend/db/posts";
+import { postType } from "./postSlice";
 
-interface userType {
+export interface userTypeRaw {
+  bookmarks: Array<any>;
+  createdAt: string;
+  email: string;
+  firstName: string;
+  followers: Array<string>;
+  following: Array<string>;
+  id: string;
+  lastName: string;
+  password: string;
+  updatedAt: string;
+  username: string;
+  userAvatar: string;
+  _id: string;
+}
+
+export interface userType {
+  bookmarks: Array<any>;
+  createdAt: string;
+  email: string;
+  firstName: string;
+  followers: Array<userTypeRaw>;
+  following: Array<userTypeRaw>;
+  id: string;
+  lastName: string;
+  password: string;
+  updatedAt: string;
+  username: string;
+  userAvatar: string;
+  _id: string;
+}
+
+export interface userObjectType {
   encodedToken: string;
-  user: {
-    bookmarks: Array<any>;
-    createdAt: string;
-    email: string;
-    firstName: string;
-    followers: Array<any>;
-    following: Array<any>;
-    id: string;
-    lastName: string;
-    password: string;
-    updatedAt: string;
-    username: string;
-    _id: string;
-  };
+  user: userType;
 }
 
 const initialState = {
@@ -26,13 +45,14 @@ const initialState = {
     createdAt: "",
     email: "",
     firstName: "",
-    followers: [] as any[],
-    following: [] as any[],
+    followers: [] as userTypeRaw[],
+    following: [] as userTypeRaw[],
     id: "",
     lastName: "",
     password: "",
     updatedAt: "",
     username: "",
+    userAvatar: "",
     _id: "",
   },
 };
@@ -41,8 +61,11 @@ export const userSlice = createSlice({
   name: "userData",
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<userType>) =>
+    updateUserState: (state, action: PayloadAction<userObjectType>) =>
       (state = action.payload),
+    setUser: (state, action: PayloadAction<userType>) => {
+      state.user = action.payload;
+    },
     setToken: (state, action: PayloadAction<string>) => {
       state.encodedToken = action.payload;
     },
@@ -59,6 +82,7 @@ export const userSlice = createSlice({
 });
 
 export const {
+  updateUserState,
   setUser,
   setToken,
   removeUser,

@@ -8,7 +8,7 @@ export const LogoutBtn = () => {
   return (
     <>
       <button
-        className=" border border-primaryDark dark:border-primary dark:text-primary px-3 rounded-full text-base hover:scale-105 "
+        className=" border border-primaryDark dark:border-primary dark:text-primary px-3 rounded-full text-base hover:scale-105 ease-out "
         onClick={() => {
           dispatch(removeUser());
           localStorage.removeItem("token");

@@ -17,8 +17,8 @@ export const Explore = () => {
   }, []);
 
   return (
-    <>
-      <div className="flex flex-col sm:3/5 md:w-2/4 lg:w-2/4 gap-2">
+    <div className="md:w-[72%] flex flex-row gap-6 sm:3/5 ">
+      <div className="flex flex-col gap-2">
         <div className=" sm:hidden">
           <Searchbar />
         </div>
@@ -26,10 +26,10 @@ export const Explore = () => {
           <PostCard post={post} key={post._id} />
         ))}
       </div>
-      <div className="invisible md:visible">
+      <div className="hidden md:flex flex-col">
         <Searchbar />
         <SuggestionBox />
       </div>
-    </>
+    </div>
   );
 };

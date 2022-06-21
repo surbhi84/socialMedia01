@@ -60,9 +60,10 @@ export const PostPage = () => {
                   onClick={() => setShowOptions((p) => !p)}
                 />
               )}
-              {showOptions && post?.username === userData.user.username && (
-                <div className="w-screen h-screen bg-white[50] absolute">
-                  <div className="flex flex-col dark:text-primary p-1 rounded-md absolute right-0 top-5 dark:bg-darker z-10 bg-primaryLight ">
+
+              {showOptions === true &&
+                post?.username === userData.user.username && (
+                  <div className="flex flex-col dark:text-primary p-1 rounded-md absolute right-0 top-5  dark:bg-darker z-10 bg-primaryLight ">
                     <span
                       className="flex items-center gap-1 mx-1 hover:scale-105 dark:hover:bg-darkCol dark:bg-darker  p-1 rounded-md "
                       onClick={editPostHandler}
@@ -82,8 +83,7 @@ export const PostPage = () => {
                       <MdDelete className="text-xl text-rp" />
                     </span>
                   </div>
-                </div>
-              )}
+                )}
             </div>
             {isEditPost ? (
               <Createpost

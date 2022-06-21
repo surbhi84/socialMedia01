@@ -23,8 +23,6 @@ export const Searchbar = () => {
     users: Array<userTypeRaw>,
     setSearchResult: React.Dispatch<React.SetStateAction<userTypeRaw[]>>
   ) {
-    // console.log(searchQuery, "searchQyery");
-    console.log("i");
     if (searchQuery.trim() !== "") {
       const searchRes = search(searchQuery.trim(), users, {
         keySelector: (obj) => [

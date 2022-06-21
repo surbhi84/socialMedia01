@@ -7,7 +7,6 @@ import {
   SuggestionBox,
 } from "components";
 import { useAppSelector } from "hooks";
-import { Link } from "react-router-dom";
 
 export const Home = () => {
   const postsData = useAppSelector((state) => state.posts.posts);
@@ -20,17 +19,17 @@ export const Home = () => {
   );
 
   return (
-    <>
+    <div className="md:w-[72%] flex flex-row gap-6 sm:3/5">
       {/* Main content, feed */}
-      <div className="flex flex-col sm:3/5 md:w-2/4 lg:w-2/4 gap-2">
+      <div className="flex flex-col  gap-2">
         <Createpost post={{} as postType} />
         <DisplayPosts postsData={posts} />
       </div>
       {/* Suggestions */}
-      <div className="invisible md:visible">
+      <div className="hidden md:flex flex-col">
         <Searchbar />
         <SuggestionBox />
       </div>
-    </>
+    </div>
   );
 };

@@ -8,6 +8,9 @@ import { Link } from "react-router-dom";
 
 export const Bookmarks = () => {
   const [bookmarks, setBookmarks] = useState<Array<postType>>();
+  const userBookmarks = useAppSelector(
+    (state) => state.userData.user.bookmarks
+  );
   const token = useAppSelector((state) => state.userData.encodedToken);
 
   useEffect(() => {
@@ -17,7 +20,7 @@ export const Bookmarks = () => {
       );
       setBookmarks(response);
     })();
-  }, []);
+  }, [userBookmarks]);
 
   return (
     <>

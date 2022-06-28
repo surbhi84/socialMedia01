@@ -44,7 +44,7 @@ export const PostPage = () => {
     <>
       {post !== undefined && Object.keys(post).length > 0 ? (
         <div
-          className={`flex flex-col md:flex-row  w-full md:w-4/6  gap-4 p-4 min-h-screen dark:bg-darkCol dark:text-white overflow-hidden ${
+          className={`flex flex-col md:flex-row w-full md:w-4/6 gap-4 p-4 min-h-screen dark:bg-darkCol dark:text-white overflow-hidden ${
             showDeletePopup ? "overscroll-none" : ""
           }`}
         >
@@ -56,7 +56,7 @@ export const PostPage = () => {
             <div className="flex relative">
               {post?.username === userData.user.username && (
                 <BsThreeDots
-                  className=" text-primaryDark dark:text-primary text-xl hover:scale-110 ml-auto mx-4"
+                  className=" text-primaryDark dark:text-primary text-xl hover:scale-110 ml-auto mx-4 mb-2"
                   onClick={() => setShowOptions((p) => !p)}
                 />
               )}

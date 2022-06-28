@@ -1,4 +1,4 @@
-import { setError } from "appRedux/miscSlice";
+import { setPopup } from "appRedux/miscSlice";
 import { signupCall } from "apiCalls";
 import { initialState } from "./signupReducer";
 import { NavigateFunction } from "react-router-dom";
@@ -16,11 +16,11 @@ export async function signupHandler(
     signupInputs.username === "" ||
     signupInputs.pwd === ""
   ) {
-    dispatch(setError("Please fill all the fields!"));
+    dispatch(setPopup("Please fill all the fields!"));
     return;
   }
   if (signupInputs.pwd !== signupInputs.confirmPwd) {
-    dispatch(setError("Passwords don't match!"));
+    dispatch(setPopup("Passwords don't match!"));
     return;
   }
   try {

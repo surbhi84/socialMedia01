@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setDarkTheme } from "appRedux/themeSlice";
-import { AppRoutes, Header, Loader } from "./components";
-import { Link } from "react-router-dom";
+import { AppRoutes, Header, Loader, Popup } from "./components";
 import { updateUserState } from "appRedux/userSlice";
 import { getUserFromToken } from "apiCalls";
+import { useAppSelector } from "hooks";
 
 function App() {
   const [isInitialRender, setIsInitialRender] = useState(true);
+
+  const popupMsg = useAppSelector((state) => state.misc.popupMsg);
 
   const dispatch = useDispatch();
 
@@ -58,6 +60,7 @@ function App() {
         <>
           <Header />
           <AppRoutes />
+          {popupMsg !== "" && <Popup />}
         </>
       )}
     </div>

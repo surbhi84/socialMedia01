@@ -47,7 +47,7 @@ export const SuggestionBox = () => {
           return (
             <UserTile user={suggestedUser} key={suggestedUser._id}>
               <button
-                className=" text-primaryDark ml-auto hover:scale-105 duration-75 "
+                className=" text-primaryDark hover:scale-105 duration-75 hidden lg:flex "
                 onClick={(e) => followHandler(e, suggestedUser.username)}
               >
                 Follow+

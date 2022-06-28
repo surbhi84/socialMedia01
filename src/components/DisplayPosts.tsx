@@ -24,10 +24,10 @@ export const DisplayPosts = ({ postsData }: { postsData: Array<postType> }) => {
   }
 
   return (
-    <>
+    <div className="flex flex-col gap-6 my-2">
       {sortByTime().map((post: postType) => {
         return <PostCard post={post} key={post._id} />;
       })}
-    </>
+    </div>
   );
 };

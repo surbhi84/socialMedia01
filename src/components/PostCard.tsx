@@ -42,7 +42,7 @@ export const PostCard = ({ post }: { post: postType }) => {
 
   return (
     <div
-      className=" flex flex-row gap-2 dark:bg-darkLight rounded-lg p-3 my-3 w-full shadow-sm shadow-slate-400 dark:shadow-none "
+      className=" flex flex-row gap-2 dark:bg-darkLight rounded-lg p-3 w-full shadow-sm shadow-slate-400 dark:shadow-none "
       onClick={() => {
         navigate(`/post/${post._id}`);
       }}

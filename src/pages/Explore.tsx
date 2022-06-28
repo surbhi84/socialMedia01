@@ -1,6 +1,7 @@
 import { getPosts } from "apiCalls";
 import { setPosts } from "appRedux/postSlice";
 import { PostCard, Searchbar, SuggestionBox } from "components";
+import { ScrollFeedLayout } from "components/ScrollFeedLayout";
 import { useAppSelector } from "hooks";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -17,19 +18,25 @@ export const Explore = () => {
   }, []);
 
   return (
-    <div className="md:w-[72%] flex flex-row gap-6 sm:3/5 ">
-      <div className="flex flex-col gap-2">
-        <div className=" sm:hidden">
+    <ScrollFeedLayout
+      feedContent={
+        <>
+          <div className=" md:hidden">
+            <Searchbar />
+          </div>
+          <div className="flex flex-col gap-6">
+            {postsData.map((post) => (
+              <PostCard post={post} key={post._id} />
+            ))}
+          </div>
+        </>
+      }
+      secondSidebar={
+        <>
           <Searchbar />
-        </div>
-        {postsData.map((post) => (
-          <PostCard post={post} key={post._id} />
-        ))}
-      </div>
-      <div className="hidden md:flex flex-col">
-        <Searchbar />
-        <SuggestionBox />
-      </div>
-    </div>
+          <SuggestionBox />
+        </>
+      }
+    />
   );
 };

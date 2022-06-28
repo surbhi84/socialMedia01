@@ -1,6 +1,7 @@
-import { deletePost } from "apiCalls";
-import { setError } from "appRedux/miscSlice";
+import { deletePost, removeBookmark } from "apiCalls";
+import { setPopup } from "appRedux/miscSlice";
 import { postType, setPosts } from "appRedux/postSlice";
+import { removeAsBookmark } from "appRedux/userSlice";
 
 import { useAppSelector } from "hooks";
 import { useDispatch } from "react-redux";
@@ -23,13 +24,17 @@ export const DeletePopup = ({
   const postDeleteHandler = async () => {
     try {
       if (post._id !== undefined) {
-        dispatch(setPosts(postsData.filter((post) => post._id === post._id)));
+        dispatch(
+          setPosts(postsData.filter((postItem) => postItem._id === post._id))
+        );
         setShowDeletePopup(false);
+        dispatch(removeAsBookmark(post));
+        await removeBookmark(post._id, userData.encodedToken);
         navigate(-1);
         await deletePost(post._id, userData.encodedToken);
       }
     } catch (err) {
-      setError("Oops something went wrong couldn't delete post!");
+      setPopup("Oops something went wrong couldn't delete post!");
       dispatch(setPosts([...postsData, post]));
     }
   };

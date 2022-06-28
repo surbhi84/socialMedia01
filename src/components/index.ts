@@ -4,7 +4,7 @@ export { Header } from "./Header";
 export { LoginComponent } from "./LoginComponent";
 export { SignupComponent } from "./signupComponent/SignupComponent";
 export { Sidebar } from "./Sidebar";
-export { Error } from "./Error";
+export { Popup } from "./Popup";
 export { Createpost } from "./Createpost";
 export { PostCard } from "./PostCard";
 export { DisplayPosts } from "./DisplayPosts";

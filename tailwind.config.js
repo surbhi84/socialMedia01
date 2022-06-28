@@ -6,12 +6,18 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        customping: "animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;",
+        customping: " customping 2s cubic-bezier(0, 0, 0.2, 1) infinite",
+        loading: "loading 2s",
       },
 
       keyframes: {
         customping: {
           "75%, 100%": { transform: "scale(2)", opacity: "50" },
+        },
+        loading: {
+          "100%": {
+            width: "100%",
+          },
         },
       },
 

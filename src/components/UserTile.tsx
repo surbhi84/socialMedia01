@@ -25,7 +25,7 @@ export const UserTile = ({
   }
 
   return (
-    <div className="flex " key={user.id}>
+    <div className="flex flex-wrap justify-between" key={user.id}>
       <Link
         to={`/profile/${user.username}`}
         className=" flex flex-row items-center gap-1 md:gap-2 "

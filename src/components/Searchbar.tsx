@@ -63,13 +63,13 @@ export const Searchbar = () => {
   );
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 w-full mb-2">
       <label className=" flex flex-row border h-8 rounded-md border-primaryDark ">
-        <FiSearch className=" text-xl text-primaryDark self-center m-2 " />
+        <FiSearch className=" text-xl text-primaryDark self-center ml-2 " />
         <input
           type="Search"
           placeholder="Search here"
-          className=" outline-none m-1 bg-transparent "
+          className=" outline-none p-1 bg-transparent w-full"
           value={searchQuery}
           onChange={(e) => {
             setSearchQuery(e.target.value);

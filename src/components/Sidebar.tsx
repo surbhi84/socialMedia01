@@ -16,7 +16,7 @@ export const Sidebar = () => {
   const BookRef = useRef<HTMLAnchorElement>(null);
 
   return (
-    <div className=" flex flex-row md:flex-col text-lg sm:text-xl shrink-0 sm:shrink md:w-52 md:gap-2 rounded-md sticky z-10 top-0 overflow-x-scroll sm:overflow-hidden scrollbar-hide bg-white dark:text-primary dark:bg-darker ">
+    <div className=" flex flex-row md:flex-col text-lg sm:text-xl shrink-0 sm:shrinkgap-1 md:gap-2 md:w-48 md:h-[95vh] rounded-md sticky top-0 md:top-5 z-10 md:z-0 overflow-x-scroll sm:overflow-hidden scrollbar-hide dark:text-primary dark:bg-darker bg-white ">
       <NavLink
         to="/home"
         className={({ isActive }) =>

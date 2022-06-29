@@ -25,7 +25,10 @@ export const UserTile = ({
   }
 
   return (
-    <div className="flex flex-wrap justify-between" key={user.id}>
+    <div
+      className="flex flex-wrap justify-between py-1 px-2 dark:bg-darker rounded-lg dark:border-0 border border-1 border-primaryDark "
+      key={user.id}
+    >
       <Link
         to={`/profile/${user.username}`}
         className=" flex flex-row items-center gap-1 md:gap-2 "
@@ -41,7 +44,7 @@ export const UserTile = ({
         />
         <div className=" flex flex-col ">
           {user.firstName + " " + user.lastName}
-          <div className=" text-darkCol dark:text-slate-200 ">
+          <div className=" text-darkCol dark:text-primaryDark  ">
             @{user.username}
           </div>
         </div>

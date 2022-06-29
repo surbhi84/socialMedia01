@@ -7,7 +7,8 @@ module.exports = {
     extend: {
       animation: {
         customping: " customping 2s cubic-bezier(0, 0, 0.2, 1) infinite",
-        loading: "loading 2s",
+        loading: "loading 2.5s ",
+        slide: "slide 3s",
       },
 
       keyframes: {
@@ -17,6 +18,21 @@ module.exports = {
         loading: {
           "100%": {
             width: "100%",
+          },
+        },
+
+        slide: {
+          "0%": {
+            transform: "translateX(-110%)",
+          },
+          "20%": {
+            transform: "translateX(0%)",
+          },
+          "80%": {
+            transform: "translateX(0%)",
+          },
+          "100%": {
+            transform: "translateX(-110%)",
           },
         },
       },

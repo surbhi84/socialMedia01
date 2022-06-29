@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const Comment = ({ comment }: { comment: commentsType }) => {
   return (
-    <div className="flex flex-row items-center gap-3 rounded-lg p-3 my-3 dark:bg-darkLight ">
+    <div className="flex flex-row items-center gap-3 rounded-lg p-2 dark:bg-darkLight ">
       <Link to={`/profile/${comment.username}`}>
         <img
           src={

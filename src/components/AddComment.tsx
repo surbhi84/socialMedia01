@@ -18,7 +18,7 @@ export const AddComment = ({ postId }: { postId: string }) => {
   };
 
   return (
-    <div className="flex flex-col gap-2 m-3 mx-2">
+    <div className="flex flex-col gap-2 ">
       <textarea
         onChange={(e) => {
           setComment(e.target.value);

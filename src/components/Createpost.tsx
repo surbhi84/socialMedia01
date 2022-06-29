@@ -7,8 +7,8 @@ import {
   MdOutlineAddReaction,
   MdOutlineAddPhotoAlternate,
 } from "react-icons/md";
+import { IoClose } from "react-icons/io5";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 export const Createpost = ({
   post,
@@ -29,7 +29,6 @@ export const Createpost = ({
   const heightRef = useRef<HTMLTextAreaElement>(null);
   const imgRef = useRef<Array<string>>([]);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const emojiArray = [
     "😅",
@@ -51,8 +50,9 @@ export const Createpost = ({
   ];
 
   async function editPostHandler() {
-    console.log(postText.length, "post");
-    if (postText.length > 2) {
+    if (postText === "") {
+      dispatch(setPopup("Please add some text!"));
+    } else if (postText.length > 2) {
       try {
         const response = await editPost(
           post._id,
@@ -65,11 +65,13 @@ export const Createpost = ({
       } catch (err) {
         setPopup("Something went wrong can't edit post!");
       }
-    } else dispatch(setPopup("Please add some text!"));
+    } else dispatch(setPopup("Text is too short!"));
   }
 
   async function postHandler() {
-    if (postText.length > 2) {
+    if (postText === "") {
+      dispatch(setPopup("Please add some text!"));
+    } else if (postText.length > 2) {
       try {
         const response = await postPost(
           postText,
@@ -87,7 +89,7 @@ export const Createpost = ({
       } catch (err) {
         console.error(err);
       }
-    } else dispatch(setPopup("Please add some text!"));
+    } else dispatch(setPopup("Text is too short !"));
   }
 
   // The below useEffect releases the created url for the image that is shown inside the createpost component, as it is no longer needed it doesn't serve any purpose to have it in the memory.
@@ -128,22 +130,33 @@ export const Createpost = ({
             />
 
             {typeof uploadedImg === "string" ? (
-              <img
-                src={uploadedImg}
-                alt="post image"
-                className="h-20 w-32 my-1"
-              />
+              <div className="flex">
+                <img
+                  src={uploadedImg}
+                  alt="post image"
+                  className="h-20 w-32 my-1"
+                />
+                <IoClose
+                  className="hover:scale-110"
+                  onClick={() => setUploadedImg("")}
+                />
+              </div>
             ) : (
               Object.values(uploadedImg).map((i) => {
                 const localVar = window.URL.createObjectURL(i);
                 imgRef.current.push(localVar);
                 return (
-                  <img
-                    key={i.name}
-                    src={localVar}
-                    alt={i.name}
-                    className="h-20 w-32 my-1"
-                  />
+                  <div className="flex" key={i.name}>
+                    <img
+                      src={localVar}
+                      alt={i.name}
+                      className="h-20 w-32 my-1"
+                    />
+                    <IoClose
+                      className="hover:scale-110"
+                      onClick={() => setUploadedImg({} as FileList)}
+                    />
+                  </div>
                 );
               })
             )}
@@ -182,7 +195,10 @@ export const Createpost = ({
                   className="hidden"
                   multiple
                   onChange={(e) => {
-                    if (e?.target?.files) setUploadedImg(e.target.files);
+                    if (e?.target?.files) {
+                      console.log(e.target.files);
+                      setUploadedImg(e.target.files);
+                    }
                   }}
                 />
                 <span>

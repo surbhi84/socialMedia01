@@ -37,17 +37,17 @@ export const SuggestionBox = () => {
   return (
     <div>
       {suggestedUsers.length > 0 ? (
-        <h3 className=" my-4 ">Follow more users</h3>
+        <h3 className=" my-3 ">Follow more users</h3>
       ) : (
-        <h3 className=" my-4 ">Seems like you've followed Everyone!!</h3>
+        <h3 className=" my-3 ">Seems like you've followed Everyone!!</h3>
       )}
 
-      <div className=" flex flex-col gap-2 ">
+      <div className=" flex flex-col gap-3 ">
         {suggestedUsers.map((suggestedUser) => {
           return (
             <UserTile user={suggestedUser} key={suggestedUser._id}>
               <button
-                className=" text-primaryDark hover:scale-105 duration-75 hidden lg:flex "
+                className=" text-primaryDark dark:text-primary hover:scale-105 duration-75 hidden lg:flex  self-center"
                 onClick={(e) => followHandler(e, suggestedUser.username)}
               >
                 Follow+

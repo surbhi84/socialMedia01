@@ -10,6 +10,7 @@ export const Searchbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResult, setSearchResult] = useState<Array<userTypeRaw>>([]);
   const [users, setUsers] = useState<Array<userTypeRaw>>([]);
+  const [showNotFound, setShowNotFound] = useState(false);
 
   useEffect(() => {
     (async function () {
@@ -21,7 +22,8 @@ export const Searchbar = () => {
   function searchInputHandler(
     searchQuery: string,
     users: Array<userTypeRaw>,
-    setSearchResult: React.Dispatch<React.SetStateAction<userTypeRaw[]>>
+    setSearchResult: React.Dispatch<React.SetStateAction<userTypeRaw[]>>,
+    setShowNotFound: React.Dispatch<React.SetStateAction<boolean>>
   ) {
     if (searchQuery.trim() !== "") {
       const searchRes = search(searchQuery.trim(), users, {
@@ -34,14 +36,16 @@ export const Searchbar = () => {
         threshold: 0.7,
         ignoreCase: true,
       });
-
       setSearchResult(searchRes);
+      if (searchRes.length === 0) {
+        setShowNotFound(true);
+      }
     } else {
       setSearchResult([]);
     }
   }
 
-  const debounceFun = (callbackFun: CallableFunction, timeout = 500) => {
+  const debounceFun = (callbackFun: CallableFunction, timeout = 1000) => {
     let timer: NodeJS.Timeout;
     return (...args: any) => {
       clearTimeout(timer);
@@ -54,9 +58,15 @@ export const Searchbar = () => {
       (
         searchTerms: string,
         users: Array<userTypeRaw>,
-        setSearchQuery: React.Dispatch<React.SetStateAction<string>>
+        setSearchResult: React.Dispatch<React.SetStateAction<userTypeRaw[]>>,
+        setShowNotFound: React.Dispatch<React.SetStateAction<boolean>>
       ) => {
-        searchInputHandler(searchTerms, users, setSearchResult);
+        searchInputHandler(
+          searchTerms,
+          users,
+          setSearchResult,
+          setShowNotFound
+        );
       }
     ),
     []
@@ -72,18 +82,30 @@ export const Searchbar = () => {
           className=" outline-none p-1 bg-transparent w-full"
           value={searchQuery}
           onChange={(e) => {
+            setShowNotFound(false);
             setSearchQuery(e.target.value);
-            debouncedSearch(e.target.value, users, setSearchResult);
+            debouncedSearch(
+              e.target.value,
+              users,
+              setSearchResult,
+              setShowNotFound
+            );
           }}
         />
       </label>
-      {searchResult.length > 0 && (
+      {searchResult.length > 0 ? (
         <>
           <h4>Search Results</h4>
           {searchResult.map((searchedUser) => (
             <UserTile user={searchedUser} key={searchedUser._id} />
           ))}
         </>
+      ) : (
+        showNotFound && (
+          <div className="dark:bg-darker rounded-lg p-1 text-center">
+            No Users Found !
+          </div>
+        )
       )}
     </div>
   );

@@ -1,20 +1,30 @@
+import { useAppSelector } from "hooks";
 import { IoClose } from "react-icons/io5";
 export const Notifications = () => {
-  let notifications: any[] = [1];
+  const notificationsArray = useAppSelector(
+    (state) => state.misc.notifications
+  );
+  console.log(notificationsArray, "array");
+  let notifications = notificationsArray.reverse();
+  console.log(notifications, "noti");
+
   return (
-    <>
+    <div className="flex flex-col md:w-[72%] gap-3">
       {notifications.length > 0 ? (
-        <div className=" flex flex-col gap-4 w-full md:w-[72%] mt-8">
-          <div className=" flex flex-row gap-3 rounded-lg p-3 my-3 justify-between items-center shadow-sm shadow-slate-400 dark:shadow-none dark:bg-darkLight  ">
+        notifications.reverse().map((notification) => (
+          <div
+            className=" flex flex-row gap-3 rounded-lg p-3 justify-between items-center shadow-sm shadow-slate-400 dark:shadow-none dark:bg-darkLight"
+            key={notification.id}
+          >
             <span>
-              Avinash and jatin commented on your post
+              {notification.text}
               <span className="flex-wrap text-primaryDark dark:text-primary m-2">
-                a few mins ago
+                {notification.time}
               </span>
             </span>
             <IoClose className="hover:text-primary" />
           </div>
-        </div>
+        ))
       ) : (
         <div className="flex flex-col gap-4 items-center w-full md:w-[72%] mt-8">
           <img src="/assets/programming.svg" className="w-3/4 sm:w-2/4" />
@@ -23,6 +33,6 @@ export const Notifications = () => {
           </h4>
         </div>
       )}
-    </>
+    </div>
   );
 };

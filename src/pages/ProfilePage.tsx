@@ -107,11 +107,13 @@ export const ProfilePage = () => {
                 {userProfile?.following.length} <span>Following</span>
               </div>
             </div>
-            {userPost.length > 0 ? (
-              userPost.map((post) => <PostCard post={post} key={post._id} />)
-            ) : (
-              <h4>No posts yet! </h4>
-            )}
+            <div className="flex flex-col gap-4">
+              {userPost.length > 0 ? (
+                userPost.map((post) => <PostCard post={post} key={post._id} />)
+              ) : (
+                <h4>No posts yet! </h4>
+              )}
+            </div>
           </>
         )}
       </div>

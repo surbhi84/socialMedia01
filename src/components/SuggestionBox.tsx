@@ -3,6 +3,7 @@ import { setUser, userType } from "appRedux/userSlice";
 import { useAppSelector } from "hooks";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { followHandler } from "updateHandlers";
 import { UserTile } from "./UserTile";
 
 export const SuggestionBox = () => {
@@ -25,15 +26,6 @@ export const SuggestionBox = () => {
     })();
   }, [userData.user]);
 
-  async function followHandler(
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    suggestedUsername: string
-  ) {
-    e.stopPropagation();
-    const response = await followUser(suggestedUsername, userData.encodedToken);
-    dispatch(setUser(response.data.user));
-  }
-
   return (
     <div>
       {suggestedUsers.length > 0 ? (
@@ -48,7 +40,13 @@ export const SuggestionBox = () => {
             <UserTile user={suggestedUser} key={suggestedUser._id}>
               <button
                 className=" text-primaryDark dark:text-primary hover:scale-105 duration-75 hidden lg:flex  self-center"
-                onClick={(e) => followHandler(e, suggestedUser.username)}
+                onClick={() =>
+                  followHandler(
+                    suggestedUser.username,
+                    userData.encodedToken,
+                    dispatch
+                  )
+                }
               >
                 Follow+
               </button>

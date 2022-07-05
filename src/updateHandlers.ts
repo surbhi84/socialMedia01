@@ -16,7 +16,7 @@ export async function followHandler(
     addNotifications({
       id: uuid(),
       text: `You started following ${username}`,
-      time: "just now",
+      time: Date.now(),
     })
   );
   dispatch(setUser(response.data.user));

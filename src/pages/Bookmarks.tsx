@@ -31,7 +31,7 @@ export const Bookmarks = () => {
           ))}
         </div>
       ) : (
-        <div className="flex flex-col gap-4 items-center w-full  md:w-[72%] mt-8">
+        <div className="flex flex-col gap-4 items-center w-full md:w-[72%] mt-8">
           <img src="/assets/bookmarks.svg" className="w-3/4 sm:w-2/4" />
           <Link to="/explore">
             <h4 className="text-base xs:text-lg sm:text-2xl dark:text-primary">

@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface notification {
+export interface notification {
   id: string;
   text: string;
-  time: string;
+  time: string | number;
 }
 
 interface miscTypes {
@@ -42,8 +42,14 @@ export const miscSlice = createSlice({
     addNotifications: (state, action: PayloadAction<notification>) => {
       state.notifications.push(action.payload);
     },
+    removeNotifications: (state, action: PayloadAction<string>) => {
+      state.notifications = state.notifications.filter(
+        ({ id }) => id !== action.payload
+      );
+    },
   },
 });
 
-export const { setPopup, updateIsAuth, addNotifications } = miscSlice.actions;
+export const { setPopup, updateIsAuth, addNotifications, removeNotifications } =
+  miscSlice.actions;
 export default miscSlice.reducer;

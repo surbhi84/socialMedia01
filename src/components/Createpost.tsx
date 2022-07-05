@@ -196,7 +196,6 @@ export const Createpost = ({
                   multiple
                   onChange={(e) => {
                     if (e?.target?.files) {
-                      console.log(e.target.files);
                       setUploadedImg(e.target.files);
                     }
                   }}
